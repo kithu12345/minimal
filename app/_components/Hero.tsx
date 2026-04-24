@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const Hero = () => {
     return (
-        <section className="relative min-h-screen grid grid-cols-1 lg:grid-cols-2 pt-24 overflow-hidden">
+        <section className="relative min-h-screen grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
             <div className="relative h-[70vh] lg:h-auto overflow-hidden">
                 <Image
                     alt="Editorial model in motion"
