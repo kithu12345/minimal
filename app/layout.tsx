@@ -1,4 +1,6 @@
 import './globals.css';
+import Footer from '@/components/Footer';
+
 import {
   Cormorant_Garamond,
   Plus_Jakarta_Sans,
@@ -32,7 +34,6 @@ export default function RootLayout({
       className={`light ${plusJakartaSans.variable} ${cormorantGaramond.variable}`}
     >
       <head>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
@@ -40,6 +41,7 @@ export default function RootLayout({
       </head>
       <body className="bg-off-white font-display text-soft-charcoal selection:bg-brand-teal selection:text-white">
         {children}
+        <Footer />
       </body>
     </html>
   );
