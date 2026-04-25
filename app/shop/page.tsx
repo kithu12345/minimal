@@ -1,6 +1,7 @@
 'use client';
 
 import Breadcrumb from '@/components/Breadcrumb';
+import Filter from '@/app/shop/_components/Filter';
 
 export default function Shop() {
 
@@ -8,8 +9,6 @@ export default function Shop() {
         { label: 'Home', href: '/' },
         { label: 'All Collections', href: '/shop', isActive: true },
     ];
-
-
 
     return (
         <main>
@@ -22,6 +21,15 @@ export default function Shop() {
                     />
                     <h1 className="text-5xl font-serif italic tracking-tight">All Collections</h1>
                 </div>
+            </section>
+
+
+            {/* Filter + Products */}
+            <section className="max-w-[1440px] mx-auto px-10 py-12 flex gap-12">
+                <aside className="w-1/5 shrink-0 hidden lg:block">
+                    <Filter />
+                </aside>
+
             </section>
         </main>
     );
