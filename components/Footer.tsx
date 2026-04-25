@@ -1,7 +1,30 @@
+"use client"
+
 import LogoIcon from './LogoIcon'
+import useNavigateTo from '@/hooks/useNavigateTo'
 
 export default function Footer() {
     const currentYear = new Date().getFullYear()
+    const navigateTo = useNavigateTo()
+
+    const navigationLinks = [
+        { label: 'Shop All', path: '/shop' },
+        { label: 'Women', path: '/women' },
+        { label: 'Men', path: '/men' },
+        { label: 'Collections', path: '/collections' },
+    ]
+
+    const serviceLinks = [
+        { label: 'Shipping', path: '/' },
+        { label: 'Returns', path: '/' },
+        { label: 'Size Guide', path: '/' },
+        { label: 'Contact', path: '/contact' },
+    ]
+
+    const legalLinks = [
+        { label: 'Privacy', path: '/privacy' },
+        { label: 'Terms', path: '/terms' },
+    ]
 
     return (
         <footer className="bg-white dark:bg-black/20 border-t border-[#e7f1f3] dark:border-white/10 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-10">
@@ -21,10 +44,10 @@ export default function Footer() {
                         Redefining modern apparel with a focus on simplicity, quality materials, and timeless silhouettes.
                     </p>
                     <div className="flex gap-4">
-                        <a className="text-[#4e8b97] hover:text-primary transition-colors" href="#">
+                        <a className="cursor-pointer text-[#4e8b97] hover:text-primary transition-colors" href="#">
                             <span className="material-symbols-outlined">social_leaderboard</span>
                         </a>
-                        <a className="text-[#4e8b97] hover:text-primary transition-colors" href="#">
+                        <a className="cursor-pointer text-[#4e8b97] hover:text-primary transition-colors" href="#">
                             <span className="material-symbols-outlined">camera</span>
                         </a>
                     </div>
@@ -34,10 +57,17 @@ export default function Footer() {
                 <div className="w-full">
                     <h4 className="font-bold mb-6 text-sm uppercase tracking-widest">Navigation</h4>
                     <ul className="space-y-4 text-sm text-[#4e8b97]">
-                        <li><a className="hover:text-primary transition-colors" href="#">Shop All</a></li>
-                        <li><a className="hover:text-primary transition-colors" href="#">Women</a></li>
-                        <li><a className="hover:text-primary transition-colors" href="#">Men</a></li>
-                        <li><a className="hover:text-primary transition-colors" href="#">Collections</a></li>
+                        {navigationLinks.map((item) => (
+                            <li key={item.label}>
+                                <button
+                                    type="button"
+                                    className="cursor-pointer hover:text-primary transition-colors"
+                                    onClick={() => navigateTo(item.path, true)}
+                                >
+                                    {item.label}
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </div>
 
@@ -45,10 +75,17 @@ export default function Footer() {
                 <div className="w-full">
                     <h4 className="font-bold mb-6 text-sm uppercase tracking-widest">Service</h4>
                     <ul className="space-y-4 text-sm text-[#4e8b97]">
-                        <li><a className="hover:text-primary transition-colors" href="#">Shipping</a></li>
-                        <li><a className="hover:text-primary transition-colors" href="#">Returns</a></li>
-                        <li><a className="hover:text-primary transition-colors" href="#">Size Guide</a></li>
-                        <li><a className="hover:text-primary transition-colors" href="#">Contact</a></li>
+                        {serviceLinks.map((item) => (
+                            <li key={item.label}>
+                                <button
+                                    type="button"
+                                    className="cursor-pointer hover:text-primary transition-colors"
+                                    onClick={() => navigateTo(item.path, true)}
+                                >
+                                    {item.label}
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </div>
 
@@ -81,8 +118,16 @@ export default function Footer() {
                 </p>
 
                 <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
-                    <a className="hover:text-primary transition-colors" href="#">Privacy</a>
-                    <a className="hover:text-primary transition-colors" href="#">Terms</a>
+                    {legalLinks.map((item) => (
+                        <button
+                            key={item.label}
+                            type="button"
+                            className="cursor-pointer hover:text-primary transition-colors"
+                            onClick={() => navigateTo(item.path, true)}
+                        >
+                            {item.label}
+                        </button>
+                    ))}
                 </div>
             </div>
         </footer>

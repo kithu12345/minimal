@@ -32,12 +32,14 @@ export default function ProductCard({ title, color, price, image }: ProductCardP
                 <div className="hover-actions absolute inset-0 bg-black/5 flex flex-col justify-end p-4 opacity-0 transition-all duration-300 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
                     <div className="flex flex-col gap-2">
                         <button
+                            type="button"
                             onClick={handleAddToCart}
                             className="w-full py-3 bg-brand-teal text-white text-xs font-bold uppercase tracking-widest hover:bg-[#1499b5] transition-colors"
                         >
                             Add to Cart
                         </button>
                         <button
+                            type="button"
                             onClick={handleQuickView}
                             className="w-full py-3 bg-white text-[#0e191b] text-xs font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors"
                         >
@@ -49,7 +51,7 @@ export default function ProductCard({ title, color, price, image }: ProductCardP
             <div className="text-center space-y-1">
                 <h3 className="text-base font-medium tracking-tight">{title}</h3>
                 <p className="text-[#4e8b97] text-sm">{color}</p>
-                <p className="text-sm font-bold pt-1">${price.toFixed(2)}</p>
+                <p className="text-sm font-bold pt-1">Rs {price.toFixed(2)}</p>
             </div>
         </div>
     )

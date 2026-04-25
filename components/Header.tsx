@@ -2,10 +2,19 @@
 
 import { useState } from 'react'
 import LogoIcon from './LogoIcon'
+import useNavigateTo from '@/hooks/useNavigateTo'
 
 export default function Header() {
     const [cartCount] = useState(0)
     const [menuOpen, setMenuOpen] = useState(false)
+    const navigateTo = useNavigateTo()
+
+    const navItems = [
+        { label: 'Shop', path: '/shop' },
+        { label: 'Collections', path: '/collections' },
+        { label: 'Women', path: '/women' },
+        { label: 'Men', path: '/men' },
+    ]
 
     return (
         <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#e7f1f3] dark:border-white/10">
@@ -19,17 +28,27 @@ export default function Header() {
                         <div className="size-5 sm:size-6 text-primary">
                             <LogoIcon />
                         </div>
-                        <h2 className="text-lg sm:text-xl lg:text-2xl font-black tracking-tight uppercase">
+                        <button
+                            type="button"
+                            className="cursor-pointer text-lg sm:text-xl lg:text-2xl font-black tracking-tight uppercase"
+                            onClick={() => navigateTo('/', true)}
+                        >
                             Minimal
-                        </h2>
+                        </button>
                     </div>
 
                     {/* DESKTOP NAV */}
                     <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-                        <a className="text-sm font-semibold hover:text-primary">Shop</a>
-                        <a className="text-sm font-semibold hover:text-primary">Collections</a>
-                        <a className="text-sm font-semibold hover:text-primary">New Arrivals</a>
-                        <a className="text-sm font-semibold hover:text-primary">Journal</a>
+                        {navItems.map((item) => (
+                            <button
+                                key={item.label}
+                                type="button"
+                                className="cursor-pointer text-sm font-semibold hover:text-primary"
+                                onClick={() => navigateTo(item.path, true)}
+                            >
+                                {item.label}
+                            </button>
+                        ))}
                     </nav>
                 </div>
 
@@ -68,10 +87,19 @@ export default function Header() {
             {/* MOBILE MENU */}
             {menuOpen && (
                 <div className="md:hidden px-6 pb-6 space-y-4 bg-background-light dark:bg-background-dark border-t border-[#e7f1f3] dark:border-white/10">
-                    <a className="block text-sm font-semibold">Shop</a>
-                    <a className="block text-sm font-semibold">Collections</a>
-                    <a className="block text-sm font-semibold">New Arrivals</a>
-                    <a className="block text-sm font-semibold">Journal</a>
+                    {navItems.map((item) => (
+                        <button
+                            key={item.label}
+                            type="button"
+                            className="cursor-pointer block text-sm font-semibold"
+                            onClick={() => {
+                                setMenuOpen(false)
+                                navigateTo(item.path, true)
+                            }}
+                        >
+                            {item.label}
+                        </button>
+                    ))}
                 </div>
             )}
         </header>
