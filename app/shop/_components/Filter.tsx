@@ -98,11 +98,14 @@ export default function Filter() {
                         max="1000"
                         value={priceRange}
                         onChange={(e) => setPriceRange(Number(e.target.value))}
-                        className="w-full h-1 bg-[#d7e6e9] dark:bg-white/15 rounded-lg appearance-none cursor-pointer accent-[#1499b5]"
+                        className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-[#1499b5]"
+                        style={{
+                            background: `linear-gradient(to right, #1499b5 0%, #1499b5 ${priceRange / 10}%, #d7e6e9 ${priceRange / 10}%, #d7e6e9 100%)`,
+                        }}
                     />
                     <div className="flex justify-between text-xs text-[#4e8b97] font-medium">
-                        <span>$0</span>
-                        <span>${priceRange}+</span>
+                        <span>Rs 0</span>
+                        <span>Rs {priceRange}</span>
                     </div>
                 </div>
             </div>
