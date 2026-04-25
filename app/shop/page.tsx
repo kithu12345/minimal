@@ -1,14 +1,26 @@
 'use client';
 
+import { useState } from 'react';
+import Pagination from '@/components/Pagination';
 import Breadcrumb from '@/components/Breadcrumb';
+import ProductGrid from '@/app/shop/_components/ProductGrid';
 import Filter from '@/app/shop/_components/Filter';
+import { allProducts } from '@/data/products';
+
+const PRODUCTS_PER_PAGE = 6;
 
 export default function Shop() {
+    const [currentPage, setCurrentPage] = useState(1);
 
     const breadcrumbItems = [
         { label: 'Home', href: '/' },
         { label: 'All Collections', href: '/shop', isActive: true },
     ];
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
 
     return (
         <main>
@@ -29,7 +41,19 @@ export default function Shop() {
                 <aside className="w-1/5 shrink-0 hidden lg:block">
                     <Filter />
                 </aside>
-
+                <div className="flex-1">
+                    <ProductGrid
+                        products={allProducts}
+                        currentPage={currentPage}
+                        productsPerPage={PRODUCTS_PER_PAGE}
+                    />
+                    <Pagination
+                        currentPage={currentPage}
+                        totalItems={allProducts.length}
+                        itemsPerPage={PRODUCTS_PER_PAGE}
+                        onPageChange={handlePageChange}
+                    />
+                </div>
             </section>
         </main>
     );
