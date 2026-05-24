@@ -12,10 +12,12 @@ export default function Header() {
     const pathname = usePathname()
 
     const navItems = [
+        { label: 'Home', path: '/' },
         { label: 'Shop', path: '/shop' },
         { label: 'Women', path: '/women' },
         { label: 'Men', path: '/men' },
         { label: 'About', path: '/about' },
+        { label: 'Contact', path: '/contact' },
     ]
 
     const isActive = (path: string) => pathname === path
