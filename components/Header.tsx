@@ -8,6 +8,7 @@ import useNavigateTo from '@/hooks/useNavigateTo'
 export default function Header() {
     const [cartCount] = useState(0)
     const [menuOpen, setMenuOpen] = useState(false)
+
     const navigateTo = useNavigateTo()
     const pathname = usePathname()
 
@@ -22,8 +23,10 @@ export default function Header() {
 
     const isActive = (path: string) => pathname === path
 
+    if (pathname === '/login') return null
+
     return (
-        <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#e7f1f3] dark:border-white/10">
+        <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
             <div className="max-w-[1600px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-4">
 
                 {/* LEFT SIDE */}
@@ -34,10 +37,11 @@ export default function Header() {
                         <div className="size-5 sm:size-6 text-primary">
                             <LogoIcon />
                         </div>
+
                         <button
                             type="button"
-                            className="cursor-pointer text-lg sm:text-xl lg:text-2xl font-black tracking-tight uppercase"
                             onClick={() => navigateTo('/', true)}
+                            className="cursor-pointer text-lg sm:text-xl lg:text-2xl font-black tracking-tight uppercase text-black"
                         >
                             Minimal
                         </button>
@@ -50,11 +54,11 @@ export default function Header() {
                                 key={item.label}
                                 type="button"
                                 onClick={() => navigateTo(item.path, true)}
-                                className={`cursor-pointer text-sm font-semibold transition
-                                    ${isActive(item.path)
+                                className={`cursor-pointer text-sm font-semibold transition-colors duration-200 ${
+                                    isActive(item.path)
                                         ? 'text-primary'
-                                        : 'hover:text-primary'
-                                    }`}
+                                        : 'text-gray-700 hover:text-primary'
+                                }`}
                             >
                                 {item.label}
                             </button>
@@ -66,18 +70,25 @@ export default function Header() {
                 <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
 
                     {/* SEARCH */}
-                    <button className="hidden sm:flex items-center justify-center rounded-lg size-9 sm:size-10 bg-[#e7f1f3] dark:bg-white/10 hover:bg-[#d0e3e7] dark:hover:bg-white/20 transition">
-                        <span className="material-symbols-outlined">search</span>
+                    <button className="hidden sm:flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition">
+                        <span className="material-symbols-outlined text-[20px]">
+                            search
+                        </span>
                     </button>
 
                     {/* PROFILE */}
-                    <button className="hidden sm:flex items-center justify-center rounded-lg size-9 sm:size-10 bg-[#e7f1f3] dark:bg-white/10 hover:bg-[#d0e3e7] dark:hover:bg-white/20 transition">
-                        <span className="material-symbols-outlined">person</span>
+                    <button className="hidden sm:flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition">
+                        <span className="material-symbols-outlined text-[20px]">
+                            person
+                        </span>
                     </button>
 
                     {/* CART */}
-                    <button className="relative flex items-center justify-center rounded-lg size-9 sm:size-10 bg-[#e7f1f3] dark:bg-white/10 hover:bg-[#d0e3e7] dark:hover:bg-white/20 transition">
-                        <span className="material-symbols-outlined">shopping_bag</span>
+                    <button className="relative flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition">
+                        <span className="material-symbols-outlined text-[20px]">
+                            shopping_bag
+                        </span>
+
                         <span className="absolute -top-1 -right-1 size-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                             {cartCount}
                         </span>
@@ -85,8 +96,8 @@ export default function Header() {
 
                     {/* MOBILE MENU BUTTON */}
                     <button
-                        className="md:hidden flex items-center justify-center rounded-lg size-9 bg-[#e7f1f3] dark:bg-white/10"
                         onClick={() => setMenuOpen(!menuOpen)}
+                        className="md:hidden flex items-center justify-center rounded-xl size-9 bg-gray-100 hover:bg-gray-200 transition"
                     >
                         <span className="material-symbols-outlined">
                             {menuOpen ? 'close' : 'menu'}
@@ -97,7 +108,7 @@ export default function Header() {
 
             {/* MOBILE MENU */}
             {menuOpen && (
-                <div className="md:hidden px-6 pb-6 space-y-4 bg-background-light dark:bg-background-dark border-t border-[#e7f1f3] dark:border-white/10">
+                <div className="md:hidden px-6 pb-6 pt-4 space-y-4 bg-white border-t border-gray-200">
                     {navItems.map((item) => (
                         <button
                             key={item.label}
@@ -106,11 +117,11 @@ export default function Header() {
                                 setMenuOpen(false)
                                 navigateTo(item.path, true)
                             }}
-                            className={`block text-sm font-semibold transition
-                                ${isActive(item.path)
+                            className={`block text-sm font-semibold transition-colors duration-200 ${
+                                isActive(item.path)
                                     ? 'text-primary'
-                                    : 'hover:text-primary'
-                                }`}
+                                    : 'text-gray-700 hover:text-primary'
+                            }`}
                         >
                             {item.label}
                         </button>

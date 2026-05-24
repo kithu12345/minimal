@@ -37,13 +37,13 @@ const Hero = () => {
                 <div className="absolute inset-0 z-0 select-none pointer-events-none">
                     <motion.div
                         initial={{ scale: 1.08, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 0.45 }}
+                        animate={{ scale: 1, opacity: 0.8 }}
                         transition={{ duration: 2, ease: "easeOut" }}
                         className="relative w-full h-full"
                     >
                         <Image
-                            src="/images/luxury_hero.png"
-                            alt="Luxury fashion editorial"
+                            src="/images/home_hero.png"
+                            alt="home"
                             fill
                             priority
                             className="object-cover object-center"

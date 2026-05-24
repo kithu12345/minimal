@@ -1,11 +1,15 @@
 "use client"
 
+import { usePathname } from 'next/navigation'
 import LogoIcon from './LogoIcon'
 import useNavigateTo from '@/hooks/useNavigateTo'
 
 export default function Footer() {
     const currentYear = new Date().getFullYear()
     const navigateTo = useNavigateTo()
+    const pathname = usePathname()
+
+    if (pathname === '/login') return null
 
     const navigationLinks = [
         { label: 'Shop All', path: '/shop' },
