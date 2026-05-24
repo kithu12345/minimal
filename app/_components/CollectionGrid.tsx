@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 const collections = [
   {
@@ -22,29 +25,42 @@ const collections = [
 export default function CollectionGrid() {
   return (
     <section className="max-w-[1440px] mx-auto px-10 py-24">
-      <div className="flex flex-col items-center mb-16 space-y-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="flex flex-col items-center mb-16 space-y-4"
+      >
         <h2 className="text-sm font-bold text-brand-teal uppercase tracking-[0.3em]">Signature Lines</h2>
         <p className="text-4xl font-serif italic text-center">Curated Collections</p>
-      </div>
+      </motion.div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {collections.map((collection) => (
-          <Link
+        {collections.map((collection, index) => (
+          <motion.div
             key={collection.title}
-            href={collection.href}
-            className="group relative block aspect-[3/4] overflow-hidden cursor-pointer"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: index * 0.15 }}
           >
-            <Image
-              alt={`${collection.title}'s Collection`}
-              src={collection.image}
-              fill
-              className="object-cover transition-transform duration-1000 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-500"></div>
-            <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
-              <h3 className="text-3xl font-serif italic mb-2">{collection.title}</h3>
-              <p className="text-xs uppercase tracking-widest opacity-80 group-hover:opacity-100 transition-opacity">Explore Pieces</p>
-            </div>
-          </Link>
+            <Link
+              href={collection.href}
+              className="group relative block aspect-[3/4] overflow-hidden cursor-pointer"
+            >
+              <Image
+                alt={`${collection.title}'s Collection`}
+                src={collection.image}
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-500"></div>
+              <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
+                <h3 className="text-3xl font-serif italic mb-2">{collection.title}</h3>
+                <p className="text-xs uppercase tracking-widest opacity-80 group-hover:opacity-100 transition-opacity">Explore Pieces</p>
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </section>

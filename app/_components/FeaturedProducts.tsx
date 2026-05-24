@@ -1,3 +1,6 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import ProductCard from '../../components/ProductCard'
 
 const products = [
@@ -31,16 +34,30 @@ export default function FeaturedProducts() {
     return (
         <section className="bg-white dark:bg-black/10 py-24">
             <div className="max-w-[1440px] mx-auto px-10">
-                <div className="flex justify-between items-end mb-16">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="flex justify-between items-end mb-16"
+                >
                     <div className="space-y-4">
                         <h2 className="text-sm font-bold text-brand-teal uppercase tracking-[0.3em]">Trending Now</h2>
                         <p className="text-4xl font-serif italic">Featured Essentials</p>
                     </div>
                     <a className="text-sm font-bold border-b-2 border-brand-teal pb-1 hover:text-brand-teal transition-colors uppercase tracking-widest" href="#">View All</a>
-                </div>
+                </motion.div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {products.map((product) => (
-                        <ProductCard key={product.title} {...product} />
+                    {products.map((product, index) => (
+                        <motion.div
+                            key={product.title}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: index * 0.15 }}
+                        >
+                            <ProductCard {...product} />
+                        </motion.div>
                     ))}
                 </div>
             </div>

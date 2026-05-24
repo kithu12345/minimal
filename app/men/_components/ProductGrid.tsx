@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
 import type { Product } from '@/data/products';
 
@@ -30,7 +31,12 @@ export default function ProductGrid({
     return (
         <>
             {/* Results count + Sort */}
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-[#e7f1f3] dark:border-white/10">
+            <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="flex justify-between items-center mb-8 pb-4 border-b border-[#e7f1f3] dark:border-white/10"
+            >
                 <p className="text-xs text-[#4e8b97] uppercase tracking-widest">
                     Showing {showingStart}-{showingEnd} of {totalProducts} products
                 </p>
@@ -49,7 +55,7 @@ export default function ProductGrid({
                         <option>Recommended</option>
                     </select>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Product Grid */}
             {totalProducts === 0 ? (
@@ -58,14 +64,21 @@ export default function ProductGrid({
                 </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
-                    {paginatedProducts.map((product) => (
-                        <ProductCard
+                    {paginatedProducts.map((product, index) => (
+                        <motion.div
                             key={product.id}
-                            title={product.name}
-                            color={product.color}
-                            price={product.price}
-                            image={product.image}
-                        />
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: (index % 3) * 0.12 }}
+                        >
+                            <ProductCard
+                                title={product.name}
+                                color={product.color}
+                                price={product.price}
+                                image={product.image}
+                            />
+                        </motion.div>
                     ))}
                 </div>
             )}
