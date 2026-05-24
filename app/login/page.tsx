@@ -12,34 +12,39 @@ export default function LoginPage() {
   const [loginMode, setLoginMode] = useState<'password' | 'signup' | 'forgot-password'>('password')
 
   return (
-    <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-8 md:py-16 bg-off-white min-h-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[640px] max-w-[1280px] mx-auto bg-white rounded-3xl overflow-hidden border border-[#e7f1f3]">
-
+    <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-8 md:py-16 bg-off-white max-h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-12 h-[calc(100vh-4rem)] md:h-[calc(100vh-8rem)] max-w-[1280px] mx-auto bg-white rounded-3xl overflow-hidden border border-[#e7f1f3]">
+      
         {/* LEFT COLUMN */}
-        <div className="hidden lg:block lg:col-span-5 relative bg-[#1a1a1a] overflow-hidden">
+        <div className="hidden lg:flex lg:flex-col lg:col-span-5 relative bg-[#1a1a1a] overflow-hidden h-full">
+
           <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/30 to-black/10 mix-blend-multiply" />
+
           <div className="absolute inset-0 scale-105 select-none pointer-events-none">
             <Image
               src="/images/auth_bg.png"
               alt="Modern Clothing Editorial"
               fill
               priority
-              sizes="(max-w-1024px) 100vw, 50vw"
+              sizes="50vw"
               className="object-cover object-center opacity-90 transition-transform duration-[10000ms] ease-out hover:scale-110"
             />
           </div>
 
-          {/* BRANDING METADATA */}
-          <div className="relative z-20 h-full flex flex-col justify-between p-12 text-white">
+          {/* BRANDING */}
+          <div className="relative z-20 h-full w-full flex flex-col justify-between p-12 text-white">
+
             <div className="flex items-center gap-3">
               <div className="size-6 text-primary">
                 <LogoIcon />
               </div>
-              <h2 className="text-xl font-bold uppercase tracking-widest">Minimal</h2>
+              <h2 className="text-xl font-bold uppercase tracking-widest">
+                Minimal
+              </h2>
             </div>
 
             <div className="space-y-6">
-              <h3 className="font-serif text-3xl xl:text-4xl font-light italic leading-snug tracking-wide text-white/90">
+              <h3 className="font-serif text-3xl xl:text-4xl font-light italic leading-snug text-white/90">
                 “Where timeless design meets modern comfort — redefine your style.”
               </h3>
               <div className="h-px w-16 bg-brand-teal" />
@@ -47,6 +52,7 @@ export default function LoginPage() {
                 Spring Collection / Effortless Elegance
               </p>
             </div>
+
           </div>
         </div>
 
@@ -63,8 +69,8 @@ export default function LoginPage() {
                 {loginMode === 'password'
                   ? 'Access your personalized style and orders'
                   : loginMode === 'signup'
-                  ? 'Create an account to start your fashion journey'
-                  : 'Enter your email to reset your password'}
+                    ? 'Create an account to start your fashion journey'
+                    : 'Enter your email to reset your password'}
               </p>
             </div>
 
