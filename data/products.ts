@@ -4,6 +4,7 @@ export interface Product {
     color: string;
     price: number;
     image: string;
+    gender: 'men' | 'women' | 'unisex';
 }
 
 export const allProducts: Product[] = [
@@ -14,6 +15,7 @@ export const allProducts: Product[] = [
         price: 450.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuDtguZAV7TBALXLtTufILyZZSf6xZS7-FAWar0pFGdHw81JRdTFDvsVNwGzi57CpHS1cOkvWi4N5Sb1nr_F7PjKkgfe4nu5ZF6M32Zd5pQ5kiMdMICAOy9lkvnmfRFo5A1Jl_zY9CGNLa2Mvbmmkqv3o_rIttcvyZf1yTFnxEbTUZgFRJNHfWho98bcNGsphyVGdmUGCdBuLLmPMwm-IDq7YHN5Uw-16SYW2p4w46XYxFrY6t0EOmGfoL0GS3nMJjcz6O6F5x6VySzE',
+        gender: 'unisex',
     },
     {
         id: 2,
@@ -22,6 +24,7 @@ export const allProducts: Product[] = [
         price: 65.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuCFfEXdLOobvy4SRYxnJBWoUp7RT-yAPzzxFmBeBmW2kpipxFmX9EzshjdkL4o5iy7KVxSnQXQc47Hz0Dlk8p_H9h63qIimN97JwTi7UCj0mmBa7oJRmeLSIuxwTH43imRMcDv2DJ4IzrJHva6cafhZtWY5aS_Ir3jATghtSXkW7SjcZhZWXJDk-ubt9j_qTU9182qXaIK5cM8dKRsb5_meNqMvc1VsIAaJ4PE_r456ITS4-LOCl__PnQDxoOPRxmbFOVM9t9Fr789b',
+        gender: 'unisex',
     },
     {
         id: 3,
@@ -30,6 +33,7 @@ export const allProducts: Product[] = [
         price: 185.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuBEJdtkthRNwQ0GOEkyVsi9MtMOxr7jk5OcgitCK-fbOEVovDDtu3TXJb2rhV4OUsg0wjfnz7GHc2SyxmIm_TcmFo3FdYoYfMfS0rOW_AFHLERCuR5O-FU6oYRiWFwpckIVrrXN2LdqdJwiuj2royCRAvB4Sqdrs4u7QqpMQH-s74hXPdkWJ_3c5AhwEYV6N2d52qAhw1Nr68hXfKNGeadMQmamYDJsQkNomAobOBh3EkM77ShWMoZvACotu6IjTx485iSycVKQ4-Xh',
+        gender: 'men',
     },
     {
         id: 4,
@@ -38,6 +42,7 @@ export const allProducts: Product[] = [
         price: 210.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuB2jjINy6X9ZmAL4TH-7YZv-jAgM_DqAMy5Qi-pLg2WQMKDfgkZCbrbIbaGZ_Bga_TcYvpHAr3lifqniq4w2QOfFeiyPuCMosLCCBZ_HjaaT7pwxS9s48nF2zz22_ic3IEbtbGojgJR9lDAhajnBAVWDQT3In_cQC2EBfnbNUQ3fM4cVQycrlvZ6tlbjNuHMTp2f3EY1p59GroL9sxakiADc1SSJL5EeB6DzfTPT9_qO81t3iClmClubUMQzTXltq53rc8Z6N6ySN-G',
+        gender: 'women',
     },
     {
         id: 5,
@@ -46,6 +51,7 @@ export const allProducts: Product[] = [
         price: 295.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuDtguZAV7TBALXLtTufILyZZSf6xZS7-FAWar0pFGdHw81JRdTFDvsVNwGzi57CpHS1cOkvWi4N5Sb1nr_F7PjKkgfe4nu5ZF6M32Zd5pQ5kiMdMICAOy9lkvnmfRFo5A1Jl_zY9CGNLa2Mvbmmkqv3o_rIttcvyZf1yTFnxEbTUZgFRJNHfWho98bcNGsphyVGdmUGCdBuLLmPMwm-IDq7YHN5Uw-16SYW2p4w46XYxFrY6t0EOmGfoL0GS3nMJjcz6O6F5x6VySzE',
+        gender: 'unisex',
     },
     {
         id: 6,
@@ -54,6 +60,7 @@ export const allProducts: Product[] = [
         price: 175.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuCFfEXdLOobvy4SRYxnJBWoUp7RT-yAPzzxFmBeBmW2kpipxFmX9EzshjdkL4o5iy7KVxSnQXQc47Hz0Dlk8p_H9h63qIimN97JwTi7UCj0mmBa7oJRmeLSIuxwTH43imRMcDv2DJ4IzrJHva6cafhZtWY5aS_Ir3jATghtSXkW7SjcZhZWXJDk-ubt9j_qTU9182qXaIK5cM8dKRsb5_meNqMvc1VsIAaJ4PE_r456ITS4-LOCl__PnQDxoOPRxmbFOVM9t9Fr789b',
+        gender: 'men',
     },
     {
         id: 7,
@@ -62,6 +69,7 @@ export const allProducts: Product[] = [
         price: 140.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuDtguZAV7TBALXLtTufILyZZSf6xZS7-FAWar0pFGdHw81JRdTFDvsVNwGzi57CpHS1cOkvWi4N5Sb1nr_F7PjKkgfe4nu5ZF6M32Zd5pQ5kiMdMICAOy9lkvnmfRFo5A1Jl_zY9CGNLa2Mvbmmkqv3o_rIttcvyZf1yTFnxEbTUZgFRJNHfWho98bcNGsphyVGdmUGCdBuLLmPMwm-IDq7YHN5Uw-16SYW2p4w46XYxFrY6t0EOmGfoL0GS3nMJjcz6O6F5x6VySzE',
+        gender: 'women',
     },
     {
         id: 8,
@@ -70,6 +78,7 @@ export const allProducts: Product[] = [
         price: 110.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuCFfEXdLOobvy4SRYxnJBWoUp7RT-yAPzzxFmBeBmW2kpipxFmX9EzshjdkL4o5iy7KVxSnQXQc47Hz0Dlk8p_H9h63qIimN97JwTi7UCj0mmBa7oJRmeLSIuxwTH43imRMcDv2DJ4IzrJHva6cafhZtWY5aS_Ir3jATghtSXkW7SjcZhZWXJDk-ubt9j_qTU9182qXaIK5cM8dKRsb5_meNqMvc1VsIAaJ4PE_r456ITS4-LOCl__PnQDxoOPRxmbFOVM9t9Fr789b',
+        gender: 'men',
     },
     {
         id: 9,
@@ -78,6 +87,7 @@ export const allProducts: Product[] = [
         price: 260.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuBEJdtkthRNwQ0GOEkyVsi9MtMOxr7jk5OcgitCK-fbOEVovDDtu3TXJb2rhV4OUsg0wjfnz7GHc2SyxmIm_TcmFo3FdYoYfMfS0rOW_AFHLERCuR5O-FU6oYRiWFwpckIVrrXN2LdqdJwiuj2royCRAvB4Sqdrs4u7QqpMQH-s74hXPdkWJ_3c5AhwEYV6N2d52qAhw1Nr68hXfKNGeadMQmamYDJsQkNomAobOBh3EkM77ShWMoZvACotu6IjTx485iSycVKQ4-Xh',
+        gender: 'women',
     },
     {
         id: 10,
@@ -86,6 +96,7 @@ export const allProducts: Product[] = [
         price: 225.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuB2jjINy6X9ZmAL4TH-7YZv-jAgM_DqAMy5Qi-pLg2WQMKDfgkZCbrbIbaGZ_Bga_TcYvpHAr3lifqniq4w2QOfFeiyPuCMosLCCBZ_HjaaT7pwxS9s48nF2zz22_ic3IEbtbGojgJR9lDAhajnBAVWDQT3In_cQC2EBfnbNUQ3fM4cVQycrlvZ6tlbjNuHMTp2f3EY1p59GroL9sxakiADc1SSJL5EeB6DzfTPT9_qO81t3iClmClubUMQzTXltq53rc8Z6N6ySN-G',
+        gender: 'women',
     },
     {
         id: 11,
@@ -94,6 +105,7 @@ export const allProducts: Product[] = [
         price: 320.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuDtguZAV7TBALXLtTufILyZZSf6xZS7-FAWar0pFGdHw81JRdTFDvsVNwGzi57CpHS1cOkvWi4N5Sb1nr_F7PjKkgfe4nu5ZF6M32Zd5pQ5kiMdMICAOy9lkvnmfRFo5A1Jl_zY9CGNLa2Mvbmmkqv3o_rIttcvyZf1yTFnxEbTUZgFRJNHfWho98bcNGsphyVGdmUGCdBuLLmPMwm-IDq7YHN5Uw-16SYW2p4w46XYxFrY6t0EOmGfoL0GS3nMJjcz6O6F5x6VySzE',
+        gender: 'men',
     },
     {
         id: 12,
@@ -102,6 +114,7 @@ export const allProducts: Product[] = [
         price: 190.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuCFfEXdLOobvy4SRYxnJBWoUp7RT-yAPzzxFmBeBmW2kpipxFmX9EzshjdkL4o5iy7KVxSnQXQc47Hz0Dlk8p_H9h63qIimN97JwTi7UCj0mmBa7oJRmeLSIuxwTH43imRMcDv2DJ4IzrJHva6cafhZtWY5aS_Ir3jATghtSXkW7SjcZhZWXJDk-ubt9j_qTU9182qXaIK5cM8dKRsb5_meNqMvc1VsIAaJ4PE_r456ITS4-LOCl__PnQDxoOPRxmbFOVM9t9Fr789b',
+        gender: 'women',
     },
     {
         id: 13,
@@ -110,6 +123,7 @@ export const allProducts: Product[] = [
         price: 410.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuBEJdtkthRNwQ0GOEkyVsi9MtMOxr7jk5OcgitCK-fbOEVovDDtu3TXJb2rhV4OUsg0wjfnz7GHc2SyxmIm_TcmFo3FdYoYfMfS0rOW_AFHLERCuR5O-FU6oYRiWFwpckIVrrXN2LdqdJwiuj2royCRAvB4Sqdrs4u7QqpMQH-s74hXPdkWJ_3c5AhwEYV6N2d52qAhw1Nr68hXfKNGeadMQmamYDJsQkNomAobOBh3EkM77ShWMoZvACotu6IjTx485iSycVKQ4-Xh',
+        gender: 'unisex',
     },
     {
         id: 14,
@@ -118,5 +132,6 @@ export const allProducts: Product[] = [
         price: 275.0,
         image:
             'https://lh3.googleusercontent.com/aida-public/AB6AXuB2jjINy6X9ZmAL4TH-7YZv-jAgM_DqAMy5Qi-pLg2WQMKDfgkZCbrbIbaGZ_Bga_TcYvpHAr3lifqniq4w2QOfFeiyPuCMosLCCBZ_HjaaT7pwxS9s48nF2zz22_ic3IEbtbGojgJR9lDAhajnBAVWDQT3In_cQC2EBfnbNUQ3fM4cVQycrlvZ6tlbjNuHMTp2f3EY1p59GroL9sxakiADc1SSJL5EeB6DzfTPT9_qO81t3iClmClubUMQzTXltq53rc8Z6N6ySN-G',
+        gender: 'unisex',
     },
 ];
