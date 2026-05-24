@@ -11,9 +11,9 @@ export default function Header() {
 
     const navItems = [
         { label: 'Shop', path: '/shop' },
-        { label: 'Collections', path: '/collections' },
         { label: 'Women', path: '/women' },
         { label: 'Men', path: '/men' },
+        { label: 'About', path: '/about' },
     ]
 
     return (

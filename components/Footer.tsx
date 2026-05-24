@@ -12,6 +12,7 @@ export default function Footer() {
         { label: 'Women', path: '/women' },
         { label: 'Men', path: '/men' },
         { label: 'Collections', path: '/collections' },
+        { label: 'About', path: '/about' },
     ]
 
     const serviceLinks = [
