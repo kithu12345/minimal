@@ -25,7 +25,7 @@ export default function ProductGrid({
     );
     const totalProducts = products.length;
     const showingCount = paginatedProducts.length;
-    const showingStart = startIndex + 1;
+    const showingStart = totalProducts > 0 ? startIndex + 1 : 0;
     const showingEnd = startIndex + showingCount;
 
     return (
@@ -58,24 +58,30 @@ export default function ProductGrid({
             </motion.div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
-                {paginatedProducts.map((product, index) => (
-                    <motion.div
-                        key={product.id}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: (index % 3) * 0.12 }}
-                    >
-                        <ProductCard
-                            title={product.name}
-                            color={product.color}
-                            price={product.price}
-                            image={product.image}
-                        />
-                    </motion.div>
-                ))}
-            </div>
+            {totalProducts === 0 ? (
+                <div className="text-center py-20">
+                    <p className="text-[#4e8b97] text-sm italic">No products found in this category.</p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
+                    {paginatedProducts.map((product, index) => (
+                        <motion.div
+                            key={product.id}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: (index % 3) * 0.12 }}
+                        >
+                            <ProductCard
+                                title={product.name}
+                                color={product.color}
+                                price={product.price}
+                                image={product.image}
+                            />
+                        </motion.div>
+                    ))}
+                </div>
+            )}
         </>
     );
 }

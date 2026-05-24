@@ -11,7 +11,7 @@ export default function Footer() {
         { label: 'Shop All', path: '/shop' },
         { label: 'Women', path: '/women' },
         { label: 'Men', path: '/men' },
-        { label: 'Collections', path: '/collections' },
+        { label: 'About', path: '/about' },
     ]
 
     const serviceLinks = [
