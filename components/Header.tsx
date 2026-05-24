@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import LogoIcon from './LogoIcon'
 import useNavigateTo from '@/hooks/useNavigateTo'
 
@@ -8,6 +9,7 @@ export default function Header() {
     const [cartCount] = useState(0)
     const [menuOpen, setMenuOpen] = useState(false)
     const navigateTo = useNavigateTo()
+    const pathname = usePathname()
 
     const navItems = [
         { label: 'Shop', path: '/shop' },
@@ -16,13 +18,15 @@ export default function Header() {
         { label: 'About', path: '/about' },
     ]
 
+    const isActive = (path: string) => pathname === path
+
     return (
         <header className="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#e7f1f3] dark:border-white/10">
             <div className="max-w-[1600px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-4">
-                
+
                 {/* LEFT SIDE */}
                 <div className="flex items-center gap-6 lg:gap-12">
-                    
+
                     {/* LOGO */}
                     <div className="flex items-center gap-2 sm:gap-3">
                         <div className="size-5 sm:size-6 text-primary">
@@ -43,8 +47,12 @@ export default function Header() {
                             <button
                                 key={item.label}
                                 type="button"
-                                className="cursor-pointer text-sm font-semibold hover:text-primary"
                                 onClick={() => navigateTo(item.path, true)}
+                                className={`cursor-pointer text-sm font-semibold transition
+                                    ${isActive(item.path)
+                                        ? 'text-primary'
+                                        : 'hover:text-primary'
+                                    }`}
                             >
                                 {item.label}
                             </button>
@@ -54,12 +62,13 @@ export default function Header() {
 
                 {/* RIGHT SIDE */}
                 <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
-                    
-                    {/* ICONS */}
+
+                    {/* SEARCH */}
                     <button className="hidden sm:flex items-center justify-center rounded-lg size-9 sm:size-10 bg-[#e7f1f3] dark:bg-white/10 hover:bg-[#d0e3e7] dark:hover:bg-white/20 transition">
                         <span className="material-symbols-outlined">search</span>
                     </button>
 
+                    {/* PROFILE */}
                     <button className="hidden sm:flex items-center justify-center rounded-lg size-9 sm:size-10 bg-[#e7f1f3] dark:bg-white/10 hover:bg-[#d0e3e7] dark:hover:bg-white/20 transition">
                         <span className="material-symbols-outlined">person</span>
                     </button>
@@ -73,7 +82,7 @@ export default function Header() {
                     </button>
 
                     {/* MOBILE MENU BUTTON */}
-                    <button 
+                    <button
                         className="md:hidden flex items-center justify-center rounded-lg size-9 bg-[#e7f1f3] dark:bg-white/10"
                         onClick={() => setMenuOpen(!menuOpen)}
                     >
@@ -91,11 +100,15 @@ export default function Header() {
                         <button
                             key={item.label}
                             type="button"
-                            className="cursor-pointer block text-sm font-semibold"
                             onClick={() => {
                                 setMenuOpen(false)
                                 navigateTo(item.path, true)
                             }}
+                            className={`block text-sm font-semibold transition
+                                ${isActive(item.path)
+                                    ? 'text-primary'
+                                    : 'hover:text-primary'
+                                }`}
                         >
                             {item.label}
                         </button>
