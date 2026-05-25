@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 export default function JournalSection() {
     return (
-        <section className="max-w-[1440px] mx-auto px-10 py-24 border-t border-[#e7f1f3] dark:border-white/10">
+        <section className="max-w-7xl mx-auto px-10 py-24">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

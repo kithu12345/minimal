@@ -31,10 +31,10 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="bg-white dark:bg-black/20 border-t border-[#e7f1f3] dark:border-white/10 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-10">
-            
+        <footer className="bg-white dark:bg-black/20 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-10">
+
             {/* MAIN GRID */}
-            <div className="max-w-[1600px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-10 sm:gap-12 lg:gap-14">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-10 sm:gap-12 lg:gap-14">
 
                 {/* Brand */}
                 <div className="space-y-6 max-w-sm">
@@ -103,7 +103,7 @@ export default function Footer() {
                     {/* FLEX FIX */}
                     <div className="flex flex-col sm:flex-row gap-2 w-full">
                         <input
-                            className="w-full sm:flex-1 bg-white dark:bg-white border-none px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50"
+                            className="w-full sm:flex-1 bg-white dark:bg-white border-none px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal"
                             placeholder="Email Address"
                             type="email"
                         />
@@ -116,7 +116,7 @@ export default function Footer() {
 
             {/* BOTTOM */}
             <div className="max-w-[1600px] mx-auto mt-12 sm:mt-16 pt-8 border-t border-[#e7f1f3] dark:border-white/10 flex flex-col md:flex-row justify-between items-center md:items-start gap-4 text-[10px] uppercase tracking-[0.2em] text-[#4e8b97] text-center md:text-left">
-                
+
                 <p className="leading-relaxed max-w-md">
                     © {currentYear} Minimal Apparel. Crafted for the discerning.
                 </p>

@@ -32,7 +32,7 @@ export default function Shop() {
                 transition={{ duration: 0.8 }}
                 className="bg-white dark:bg-black/10 py-16 px-10 border-b border-[#e7f1f3] dark:border-white/10"
             >
-                <div className="max-w-[1440px] mx-auto">
+                <div className="max-w-7xl mx-auto">
                     <Breadcrumb
                         items={breadcrumbItems}
                         className="mb-4"
@@ -43,7 +43,7 @@ export default function Shop() {
 
 
             {/* Filter + Products */}
-            <section className="max-w-[1440px] mx-auto px-10 py-12 flex gap-12">
+            <section className="max-w-7xl mx-auto px-10 py-24 flex gap-12">
                 <motion.aside
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}

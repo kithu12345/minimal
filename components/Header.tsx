@@ -27,7 +27,7 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
-            <div className="max-w-[1600px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-4">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-4">
 
                 {/* LEFT SIDE */}
                 <div className="flex items-center gap-6 lg:gap-12">

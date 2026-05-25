@@ -12,9 +12,9 @@ export default function LoginPage() {
   const [loginMode, setLoginMode] = useState<'password' | 'signup' | 'forgot-password'>('password')
 
   return (
-    <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-8 md:py-16 bg-off-white max-h-screen">
+    <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-8 md:py-16 bg-white dark:bg-black/15 max-h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-12 h-[calc(100vh-4rem)] md:h-[calc(100vh-8rem)] max-w-[1280px] mx-auto bg-white rounded-3xl overflow-hidden border border-[#e7f1f3]">
-      
+
         {/* LEFT COLUMN */}
         <div className="hidden lg:flex lg:flex-col lg:col-span-5 relative bg-[#1a1a1a] overflow-hidden h-full">
 

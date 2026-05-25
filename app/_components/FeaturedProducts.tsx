@@ -32,8 +32,8 @@ const products = [
 
 export default function FeaturedProducts() {
     return (
-        <section className="bg-white dark:bg-black/10 py-24">
-            <div className="max-w-[1440px] mx-auto px-10">
+        <section className="bg-white dark:bg-black/10">
+            <div className="max-w-7xl mx-auto px-10 py-24">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

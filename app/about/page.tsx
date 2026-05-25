@@ -66,7 +66,7 @@ export default function About() {
                 </div>
             </section>
 
-            <div className="relative z-30  max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10">
+            <div className="relative z-30  max-w-7xl mx-auto px-10 sm:px-6 md:px-10">
                 <Story />
             </div>
         </main>

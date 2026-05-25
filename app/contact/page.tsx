@@ -71,7 +71,7 @@ export default function Contact() {
             </section>
 
             {/* Split Content Layout */}
-            <div className="relative z-30 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10">
+            <div className="relative z-30 max-w-7xl mx-auto px-10 sm:px-6 md:px-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start pt-16">
                     
                     {/* Left Column: Details & Office */}
@@ -196,7 +196,7 @@ export default function Contact() {
                     </div>
 
                     {/* Right Column: Contact Form */}
-                    <div className="lg:col-span-7">
+                    <div className="lg:col-span-7 ">
                         <ContactForm />
                     </div>
                 </div>
