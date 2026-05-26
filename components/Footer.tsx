@@ -16,13 +16,15 @@ export default function Footer() {
         { label: 'Women', path: '/women' },
         { label: 'Men', path: '/men' },
         { label: 'About', path: '/about' },
+        { label: 'Contact', path: '/contact' },
     ]
 
-    const serviceLinks = [
-        { label: 'Shipping', path: '/' },
-        { label: 'Returns', path: '/' },
-        { label: 'Size Guide', path: '/' },
-        { label: 'Contact', path: '/contact' },
+    const support = [
+        { label: 'Shipping' },
+        { label: 'Returns' },
+        { label: 'Size Guide' },
+        { label: 'FAQ' },
+        { label: 'Customer Support' },
     ]
 
     const legalLinks = [
@@ -79,12 +81,11 @@ export default function Footer() {
                 <div className="w-full">
                     <h4 className="font-bold mb-6 text-sm uppercase tracking-widest">Service</h4>
                     <ul className="space-y-4 text-sm text-[#4e8b97]">
-                        {serviceLinks.map((item) => (
+                        {support.map((item) => (
                             <li key={item.label}>
                                 <button
                                     type="button"
                                     className="cursor-pointer hover:text-primary transition-colors"
-                                    onClick={() => navigateTo(item.path, true)}
                                 >
                                     {item.label}
                                 </button>
@@ -100,7 +101,6 @@ export default function Footer() {
                         Exclusives and new arrivals directly to your inbox.
                     </p>
 
-                    {/* FLEX FIX */}
                     <div className="flex flex-col sm:flex-row gap-2 w-full">
                         <input
                             className="w-full sm:flex-1 bg-white border-none px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal"
