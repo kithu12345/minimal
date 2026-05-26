@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import LogoIcon from './LogoIcon'
 import useNavigateTo from '@/hooks/useNavigateTo'
@@ -8,9 +8,12 @@ import useNavigateTo from '@/hooks/useNavigateTo'
 export default function Header() {
     const [cartCount] = useState(0)
     const [menuOpen, setMenuOpen] = useState(false)
+    const [profileOpen, setProfileOpen] = useState(false)
 
     const navigateTo = useNavigateTo()
     const pathname = usePathname()
+
+    const profileRef = useRef<HTMLDivElement>(null)
 
     const navItems = [
         { label: 'Home', path: '/' },
@@ -21,7 +24,50 @@ export default function Header() {
         { label: 'Contact', path: '/contact' },
     ]
 
+    const profileMenu = [
+        {
+            label: 'Profile',
+            icon: 'person',
+            path: '/profile',
+        },
+        {
+            label: 'My Orders',
+            icon: 'shopping_bag',
+            path: '/order',
+        },
+        {
+            label: 'My Favorites',
+            icon: 'favorite',
+            path: '/favorite',
+        },
+        {
+            label: 'Settings',
+            icon: 'settings',
+            path: '/setting',
+        },
+    ]
+
     const isActive = (path: string) => pathname === path
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (
+                profileRef.current &&
+                !profileRef.current.contains(event.target as Node)
+            ) {
+                setProfileOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener(
+                'mousedown',
+                handleClickOutside
+            )
+        }
+    }, [])
 
     if (pathname === '/login') return null
 
@@ -54,11 +100,10 @@ export default function Header() {
                                 key={item.label}
                                 type="button"
                                 onClick={() => navigateTo(item.path, true)}
-                                className={`cursor-pointer text-sm font-semibold transition-colors duration-200 ${
-                                    isActive(item.path)
+                                className={`cursor-pointer text-sm font-semibold transition-colors duration-200 ${isActive(item.path)
                                         ? 'text-primary'
                                         : 'text-gray-700 hover:text-primary'
-                                }`}
+                                    }`}
                             >
                                 {item.label}
                             </button>
@@ -76,15 +121,11 @@ export default function Header() {
                         </span>
                     </button>
 
-                    {/* PROFILE */}
-                    <button className="hidden sm:flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition">
-                        <span className="material-symbols-outlined text-[20px]">
-                            person
-                        </span>
-                    </button>
-
                     {/* CART */}
-                    <button className="relative flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition">
+                    <button
+                        onClick={() => navigateTo('/cart', true)}
+                        className="relative flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition"
+                    >
                         <span className="material-symbols-outlined text-[20px]">
                             shopping_bag
                         </span>
@@ -93,6 +134,78 @@ export default function Header() {
                             {cartCount}
                         </span>
                     </button>
+
+                    {/* PROFILE DROPDOWN */}
+                    <div className="relative hidden sm:block" ref={profileRef}>
+                        <button
+                            onClick={() =>
+                                setProfileOpen(!profileOpen)
+                            }
+                            className="flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition"
+                        >
+                            <span className="material-symbols-outlined text-[20px]">
+                                person
+                            </span>
+                        </button>
+
+                        {/* DROPDOWN MENU */}
+                        <div
+                            className={`absolute right-0 top-14 w-64 rounded-2xl border border-gray-200 bg-white shadow-xl transition-all duration-200 overflow-hidden ${profileOpen
+                                    ? 'opacity-100 visible translate-y-0'
+                                    : 'opacity-0 invisible -translate-y-2'
+                                }`}
+                        >
+                            {/* USER INFO */}
+                            <div className="px-5 py-4 border-b border-gray-100">
+                                <h3 className="text-sm font-bold text-black">
+                                    John Doe
+                                </h3>
+
+                                <p className="text-xs text-gray-500 mt-1">
+                                    johndoe@email.com
+                                </p>
+                            </div>
+
+                            {/* MENU ITEMS */}
+                            <div className="p-2">
+                                {profileMenu.map((item) => (
+                                    <button
+                                        key={item.label}
+                                        onClick={() => {
+                                            setProfileOpen(false)
+                                            navigateTo(
+                                                item.path,
+                                                true
+                                            )
+                                        }}
+                                        className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-100 transition text-sm font-medium text-gray-700"
+                                    >
+                                        <span className="material-symbols-outlined text-[20px]">
+                                            {item.icon}
+                                        </span>
+
+                                        {item.label}
+                                    </button>
+                                ))}
+
+                                {/* LOGOUT */}
+                                <button
+                                    onClick={() => {
+                                        setProfileOpen(false)
+
+                                        console.log('Logout')
+                                    }}
+                                    className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-red-50 transition text-sm font-medium text-red-500"
+                                >
+                                    <span className="material-symbols-outlined text-[20px]">
+                                        logout
+                                    </span>
+
+                                    Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* MOBILE MENU BUTTON */}
                     <button
@@ -117,11 +230,10 @@ export default function Header() {
                                 setMenuOpen(false)
                                 navigateTo(item.path, true)
                             }}
-                            className={`block text-sm font-semibold transition-colors duration-200 ${
-                                isActive(item.path)
+                            className={`block text-sm font-semibold transition-colors duration-200 ${isActive(item.path)
                                     ? 'text-primary'
                                     : 'text-gray-700 hover:text-primary'
-                            }`}
+                                }`}
                         >
                             {item.label}
                         </button>
