@@ -1,27 +1,34 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface ProductCardProps {
+    id: number
     title: string
     color: string
     price: number
     image: string
 }
 
-export default function ProductCard({ title, color, price, image }: ProductCardProps) {
+export default function ProductCard({ id, title, color, price, image }: ProductCardProps) {
+    const router = useRouter()
+
     const handleAddToCart = () => {
         // Add to cart logic here
         console.log(`Added ${title} to cart`)
     }
 
-    const handleQuickView = () => {
-        // Quick view logic here
-        console.log(`Quick view ${title}`)
+    const handleQuickView = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        router.push(`/products/${id}`)
     }
 
     return (
-        <div className="product-card group cursor-pointer">
+        <div 
+            className="product-card group cursor-pointer"
+            onClick={() => router.push(`/products/${id}`)}
+        >
             <div className="relative aspect-[4/5] bg-background-light dark:bg-white/5 overflow-hidden mb-4">
                 <Image
                     alt={title}

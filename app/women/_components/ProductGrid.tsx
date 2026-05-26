@@ -73,6 +73,7 @@ export default function ProductGrid({
                             transition={{ duration: 0.8, delay: (index % 3) * 0.12 }}
                         >
                             <ProductCard
+                                id={product.id}
                                 title={product.name}
                                 color={product.color}
                                 price={product.price}
