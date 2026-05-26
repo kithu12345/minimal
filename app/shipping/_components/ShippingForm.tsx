@@ -1,20 +1,32 @@
 'use client';
 
+import { motion } from "framer-motion";
+
 export function ShippingForm() {
     return (
         <div className="flex-grow">
             {/* Header */}
-            <div className="flex items-baseline justify-between bg-white text-[#1a1a1a] border border-[#e7f1f3] rounded-lg px-8 py-6 mb-10">
+            <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="flex items-baseline justify-between bg-white text-[#1a1a1a] border border-[#e7f1f3] rounded-lg px-8 py-6 mb-10"
+            >
                 <h1 className="text-4xl font-serif italic font-medium tracking-tight">
                     Shipping Details
                 </h1>
                 <span className="text-xs uppercase tracking-[0.2em] text-[#4e8b97]">
                     Step 2 of 3
                 </span>
-            </div>
+            </motion.div>
 
             {/* Form */}
-            <div className="bg-white border border-[#e7f1f3] rounded-lg p-10 space-y-12">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="bg-white border border-[#e7f1f3] rounded-lg p-10 space-y-12"
+            >
 
                 {/* Contact Information */}
                 <section>
@@ -132,7 +144,7 @@ export function ShippingForm() {
                         </div>
                     </div>
                 </section>
-            </div>
+            </motion.div>
         </div>
     );
 }

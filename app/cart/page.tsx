@@ -1,5 +1,8 @@
+"use client";
+
 import { ProductsList } from "./_components/ProductsList";
 import { OrderSummary } from "./_components/OrderSummary";
+import { motion } from "framer-motion";
 
 export default function CartPage() {
     const cartItems = [
@@ -33,11 +36,16 @@ export default function CartPage() {
     ];
 
     return (
-        <main className="max-w-7xl mx-auto px-10 pt-10 pb-20">
-            <div className="flex flex-col lg:flex-row gap-20">
+        <main className="max-w-7xl mx-auto px-10 pt-10 pb-20 overflow-hidden">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="flex flex-col lg:flex-row gap-20"
+            >
                 <ProductsList items={cartItems} />
                 <OrderSummary items={cartItems} />
-            </div>
+            </motion.div>
         </main>
     );
 }

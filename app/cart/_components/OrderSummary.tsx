@@ -1,4 +1,7 @@
+'use client';
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface CartItem {
     id: string;
@@ -20,11 +23,21 @@ export function OrderSummary({ items }: OrderSummaryProps) {
     );
 
     return (
-        <div className="w-full lg:w-[400px] shrink-0">
+        <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full lg:w-[400px] shrink-0"
+        >
             <div className="bg-white p-10 sticky top-32 border border-[#e7f1f3] rounded-lg">
-                <h2 className="text-xs font-bold uppercase tracking-[0.2em] mb-8 pb-4 border-b border-[#e7f1f3]">
+                <motion.h2
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-xs font-bold uppercase tracking-[0.2em] mb-8 pb-4 border-b border-[#e7f1f3]"
+                >
                     Order Summary
-                </h2>
+                </motion.h2>
 
                 <div className="space-y-4 mb-8">
                     <div className="flex justify-between text-sm">
@@ -72,6 +85,6 @@ export function OrderSummary({ items }: OrderSummaryProps) {
                     </p>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
