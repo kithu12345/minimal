@@ -38,12 +38,12 @@ export default function Header() {
         {
             label: 'My Favorites',
             icon: 'favorite',
-            path: '/profile/favorites',
+            path: '/favorites',
         },
         {
             label: 'Settings',
             icon: 'settings',
-            path: '/profile/settings',
+            path: '/settings',
         },
     ]
 

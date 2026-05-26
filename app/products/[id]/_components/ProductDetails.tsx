@@ -193,14 +193,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           <span>Add to Cart</span>
         </button>
 
-        {/* Wishlist */}
+        {/* Favorites */}
         <button
           className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-2 rounded-lg"
         >
           <span className="material-symbols-outlined text-lg">
             favorite
           </span>
-          <span>Add to Wishlist</span>
+          <span>Add to Favorites</span>
         </button>
       </div>
 

@@ -19,7 +19,7 @@ export function Sidebar() {
                 <h2 className="text-lg font-bold text-zinc-900 font-serif">
                     Puvanakopis
                 </h2>
-                <p className="text-xs text-zinc-500 uppercase tracking-widest mt-1 font-display">
+                <p className="text-xs text-zinc-500 tracking-widest mt-1 font-display">
                     puvan@example.com
                 </p>
             </div>
