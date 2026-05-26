@@ -1,7 +1,8 @@
-import { ProductsList } from "./_components/ProductsList";
+import { ShippingForm } from "./_components/ShippingForm";
 import { OrderSummary } from "./_components/OrderSummary";
 
-export default function CartPage() {
+export default function ShippingPage() {
+    // This would typically come from a cart context or state management
     const cartItems = [
         {
             id: "1",
@@ -35,7 +36,7 @@ export default function CartPage() {
     return (
         <main className="max-w-7xl mx-auto px-10 pt-10 pb-20">
             <div className="flex flex-col lg:flex-row gap-20">
-                <ProductsList items={cartItems} />
+                <ShippingForm />
                 <OrderSummary items={cartItems} />
             </div>
         </main>

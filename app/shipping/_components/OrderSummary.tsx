@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 interface CartItem {
     id: string;
     name: string;
@@ -35,14 +33,14 @@ export function OrderSummary({ items }: OrderSummaryProps) {
                     <div className="flex justify-between text-sm">
                         <span className="text-[#4e8b97]">Shipping</span>
                         <span className="text-[10px] uppercase tracking-widest">
-                            Calculated at checkout
+                            Free
                         </span>
                     </div>
 
                     <div className="flex justify-between text-sm">
                         <span className="text-[#4e8b97]">Estimated Tax</span>
                         <span className="text-[10px] uppercase tracking-widest">
-                            Calculated at checkout
+                            Rs 0.00
                         </span>
                     </div>
                 </div>
@@ -56,13 +54,10 @@ export function OrderSummary({ items }: OrderSummaryProps) {
                     </span>
                 </div>
 
-                <Link
-                    href="/shipping"
-                    className="w-full py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-3"
-                >
-                    Proceed to Checkout
-                    <span className="material-symbols-outlined text-base">lock</span>
-                </Link>
+                <button className="w-full py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-3">
+                    Continue to Payment
+                    <span className="material-symbols-outlined text-base">arrow_forward</span>
+                </button>
 
                 <div className="mt-8 space-y-4">
                     <p className="text-[10px] text-[#4e8b97] leading-relaxed text-center uppercase tracking-widest">

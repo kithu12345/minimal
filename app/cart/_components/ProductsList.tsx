@@ -20,12 +20,6 @@ interface ProductsListProps {
 export function ProductsList({ items }: ProductsListProps) {
     const [cartItems, setCartItems] = useState<CartItem[]>(items);
 
-    // Track active button state
-    const [activeButton, setActiveButton] = useState<{
-        id: string;
-        type: "increase" | "decrease";
-    } | null>(null);
-
     const totalItems = cartItems.reduce(
         (acc, item) => acc + item.quantity,
         0
@@ -39,12 +33,6 @@ export function ProductsList({ items }: ProductsListProps) {
                     : item
             )
         );
-
-        setActiveButton({ id, type: "increase" });
-
-        setTimeout(() => {
-            setActiveButton(null);
-        }, 150);
     };
 
     const decreaseQty = (id: string) => {
@@ -57,12 +45,6 @@ export function ProductsList({ items }: ProductsListProps) {
                 )
                 .filter((item) => item.quantity > 0)
         );
-
-        setActiveButton({ id, type: "decrease" });
-
-        setTimeout(() => {
-            setActiveButton(null);
-        }, 150);
     };
 
     const removeItem = (id: string) => {
@@ -71,6 +53,7 @@ export function ProductsList({ items }: ProductsListProps) {
 
     return (
         <div className="flex-grow">
+            {/* Header */}
             <div className="flex items-baseline justify-between bg-white text-[#1a1a1a] border border-[#e7f1f3] rounded-lg px-8 py-6 mb-10">
                 <h1 className="text-4xl font-serif italic font-medium tracking-tight">
                     Shopping Bag
@@ -81,12 +64,14 @@ export function ProductsList({ items }: ProductsListProps) {
                 </span>
             </div>
 
+            {/* Items */}
             <div className="space-y-12">
                 {cartItems.map((item) => (
                     <div
                         key={item.id}
                         className="flex gap-8 group bg-white text-[#1a1a1a] border border-[#e7f1f3] rounded-lg p-6"
                     >
+                        {/* Image */}
                         <div className="w-32 aspect-[4/5] bg-gray-100 overflow-hidden shrink-0 rounded-md">
                             <Image
                                 src={item.image}
@@ -97,6 +82,7 @@ export function ProductsList({ items }: ProductsListProps) {
                             />
                         </div>
 
+                        {/* Details */}
                         <div className="flex flex-col justify-between flex-grow py-2">
                             <div className="flex justify-between items-start">
                                 <div>
@@ -114,50 +100,31 @@ export function ProductsList({ items }: ProductsListProps) {
                                 </p>
                             </div>
 
+                            {/* Bottom Row */}
                             <div className="flex justify-between items-center">
-                                {/* Quantity Controls */}
-                                <div className="flex items-center gap-2">
+                                {/* Quantity Controls (UPDATED STYLE ✨) */}
+                                <div className="flex items-center gap-3">
                                     {/* Decrease */}
                                     <button
-                                        type="button"
                                         onClick={() => decreaseQty(item.id)}
-                                        className={`
-                                            size-9 flex items-center justify-center
-                                            text-xs border transition-all duration-200
-                                            ${
-                                                activeButton?.id === item.id &&
-                                                activeButton?.type === "decrease"
-                                                    ? "border-brand-teal bg-brand-teal text-white shadow-sm"
-                                                    : "border-[#7ea2ac] border-brand-teal bg-brand-teal/10"
-                                            }
-                                        `}
+                                        className="size-10 border border-[#e7f1f3] hover:border-brand-teal transition-colors flex items-center justify-center"
                                     >
-                                        <span className="material-symbols-outlined text-sm">
+                                        <span className="material-symbols-outlined text-base">
                                             remove
                                         </span>
                                     </button>
 
                                     {/* Quantity */}
-                                    <span className="min-w-[40px] text-center text-sm font-bold">
+                                    <span className="w-10 text-center font-medium">
                                         {item.quantity}
                                     </span>
 
                                     {/* Increase */}
                                     <button
-                                        type="button"
                                         onClick={() => increaseQty(item.id)}
-                                        className={`
-                                            size-9 flex items-center justify-center
-                                            text-xs border transition-all duration-200
-                                            ${
-                                                activeButton?.id === item.id &&
-                                                activeButton?.type === "increase"
-                                                    ? "border-brand-teal bg-brand-teal text-white shadow-sm"
-                                                    : "border-[#7ea2ac] border-brand-teal bg-brand-teal/10"
-                                            }
-                                        `}
+                                        className="size-10 border border-[#e7f1f3] hover:border-brand-teal transition-colors flex items-center justify-center"
                                     >
-                                        <span className="material-symbols-outlined text-sm">
+                                        <span className="material-symbols-outlined text-base">
                                             add
                                         </span>
                                     </button>
@@ -171,7 +138,6 @@ export function ProductsList({ items }: ProductsListProps) {
                                     <span className="material-symbols-outlined text-sm">
                                         delete_outline
                                     </span>
-
                                     Remove
                                 </button>
                             </div>
@@ -180,6 +146,7 @@ export function ProductsList({ items }: ProductsListProps) {
                 ))}
             </div>
 
+            {/* Footer */}
             <div className="mt-16 pt-8 border-t border-[#e7f1f3]">
                 <Link
                     href="/shop"

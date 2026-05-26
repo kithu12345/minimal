@@ -185,7 +185,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         {/* Add to Cart */}
         <button
           onClick={handleAddToCart}
-          className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-2 rounded-lg"
+          className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-2"
         >
           <span className="material-symbols-outlined text-lg">
             shopping_bag
@@ -195,7 +195,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
         {/* Favorites */}
         <button
-          className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-2 rounded-lg"
+          className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-2"
         >
           <span className="material-symbols-outlined text-lg">
             favorite
