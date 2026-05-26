@@ -1,4 +1,3 @@
-// components/profile/Sidebar.tsx
 "use client";
 
 import Link from "next/link";
@@ -6,9 +5,9 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
     { name: "Profile", href: "/profile", icon: "person" },
-    { name: "My Orders", href: "/profile/orders", icon: "shopping_basket" },
-    { name: "My Favorites", href: "/profile/favorites", icon: "favorite_border" },
-    { name: "Settings", href: "/profile/settings", icon: "settings" },
+    { name: "My Orders", href: "/orders", icon: "shopping_basket" },
+    { name: "My Favorites", href: "/favorites", icon: "favorite_border" },
+    { name: "Settings", href: "/settings", icon: "settings" },
 ];
 
 export function Sidebar() {
@@ -18,10 +17,10 @@ export function Sidebar() {
         <aside className="w-1/5 h-[calc(100vh-80px)] sticky top-20 hidden lg:flex flex-col gap-8 border-r border-[#e7f1f3] bg-[#f6f8f8] py-20 px-10">
             <div className="mb-10">
                 <h2 className="text-lg font-bold text-zinc-900 font-serif">
-                    Account
+                    Puvanakopis
                 </h2>
                 <p className="text-xs text-zinc-500 uppercase tracking-widest mt-1 font-display">
-                    Settings &amp; Profile
+                    puvan@example.com
                 </p>
             </div>
             <nav className="flex flex-col gap-1">
@@ -42,7 +41,7 @@ export function Sidebar() {
                             <span className="material-symbols-outlined text-xl">
                                 {item.icon}
                             </span>
-                            <span className="font-serif text-sm">{item.name}</span>
+                            <span className="text-sm">{item.name}</span>
                         </Link>
                     );
                 })}
@@ -51,7 +50,7 @@ export function Sidebar() {
                     className="flex items-center gap-4 py-3 mt-10 pl-4 text-zinc-400 hover:text-red-500 transition-all duration-200"
                 >
                     <span className="material-symbols-outlined text-xl">logout</span>
-                    <span className="font-serif text-sm">Logout</span>
+                    <span className="text-sm">Logout</span>
                 </Link>
             </nav>
         </aside>

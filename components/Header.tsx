@@ -33,17 +33,17 @@ export default function Header() {
         {
             label: 'My Orders',
             icon: 'shopping_bag',
-            path: '/order',
+            path: '/orders',
         },
         {
             label: 'My Favorites',
             icon: 'favorite',
-            path: '/favorite',
+            path: '/profile/favorites',
         },
         {
             label: 'Settings',
             icon: 'settings',
-            path: '/setting',
+            path: '/profile/settings',
         },
     ]
 
@@ -101,8 +101,8 @@ export default function Header() {
                                 type="button"
                                 onClick={() => navigateTo(item.path, true)}
                                 className={`cursor-pointer text-sm font-semibold transition-colors duration-200 ${isActive(item.path)
-                                        ? 'text-primary'
-                                        : 'text-gray-700 hover:text-primary'
+                                    ? 'text-primary'
+                                    : 'text-gray-700 hover:text-primary'
                                     }`}
                             >
                                 {item.label}
@@ -151,8 +151,8 @@ export default function Header() {
                         {/* DROPDOWN MENU */}
                         <div
                             className={`absolute right-0 top-14 w-64 rounded-2xl border border-gray-200 bg-white shadow-xl transition-all duration-200 overflow-hidden ${profileOpen
-                                    ? 'opacity-100 visible translate-y-0'
-                                    : 'opacity-0 invisible -translate-y-2'
+                                ? 'opacity-100 visible translate-y-0'
+                                : 'opacity-0 invisible -translate-y-2'
                                 }`}
                         >
                             {/* USER INFO */}
@@ -231,8 +231,8 @@ export default function Header() {
                                 navigateTo(item.path, true)
                             }}
                             className={`block text-sm font-semibold transition-colors duration-200 ${isActive(item.path)
-                                    ? 'text-primary'
-                                    : 'text-gray-700 hover:text-primary'
+                                ? 'text-primary'
+                                : 'text-gray-700 hover:text-primary'
                                 }`}
                         >
                             {item.label}

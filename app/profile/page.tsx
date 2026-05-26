@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Profile() {
     return (
-        <main className="max-w-[1440px] mx-auto flex min-h-screen bg-off-white">
+        <main className="max-w-7xl mx-auto flex min-h-screen bg-off-white">
             <Sidebar />
 
             <section className="flex-1 py-20 px-10 md:px-24">
