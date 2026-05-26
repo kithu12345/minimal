@@ -14,7 +14,7 @@ export function FavoriteGrid() {
     };
 
     return (
-        <div className="space-y-10">
+        <div className="flex flex-col gap-16">
             {/* Header */}
             <header className="space-y-4">
                 <motion.div
@@ -52,10 +52,10 @@ export function FavoriteGrid() {
                         {favorites.map((product, idx) => (
                             <motion.div
                                 key={product.id}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                                transition={{ delay: idx * 0.05 }}
+                                transition={{ duration: 0.5, delay: 0.4 + idx * 0.1 }}
                             >
                                 <FavoriteProductCard
                                     id={product.id}

@@ -61,7 +61,7 @@ const mockOrders: Order[] = [
 
 export function OrderList() {
     return (
-        <div className="space-y-10">
+        <div className="flex flex-col gap-16">
             {/* Header (UPDATED to match ProfileForm style) */}
             <header className="space-y-4">
                 <motion.div
@@ -96,7 +96,7 @@ export function OrderList() {
                         key={order.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
+                        transition={{ duration: 0.5, delay: 0.4 + idx * 0.1 }}
                         className="bg-white border border-[#e7f1f3] rounded-lg overflow-hidden"
                     >
                         {/* Order Header */}
