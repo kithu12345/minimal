@@ -21,7 +21,7 @@ export default function Filter() {
         <div className="space-y-10">
             {/* Category Filter */}
             <div>
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3] dark:border-white/10">
+                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3]">
                     Category
                 </h4>
                 <ul className="space-y-3">
@@ -43,7 +43,7 @@ export default function Filter() {
 
             {/* Size Filter */}
             <div>
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3] dark:border-white/10">
+                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3]">
                     Size
                 </h4>
                 <div className="grid grid-cols-3 gap-2">
@@ -55,7 +55,7 @@ export default function Filter() {
                             className={`py-2 text-xs border transition-all duration-200 uppercase
                                  ${selectedSize === size
                                     ? 'border-brand-teal bg-brand-teal text-white shadow-sm'
-                                    : 'border-[#7ea2ac] dark:border-white/35 hover:border-brand-teal hover:bg-brand-teal/10'
+                                    : 'border-white/35 hover:border-brand-teal hover:bg-brand-teal/10'
                                 }`}
                         >
                             {size}
@@ -66,7 +66,7 @@ export default function Filter() {
 
             {/* Color Filter */}
             <div>
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3] dark:border-white/10">
+                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3]">
                     Color
                 </h4>
                 <div className="flex flex-wrap gap-3">
@@ -75,7 +75,7 @@ export default function Filter() {
                             type="button"
                             key={color.name}
                             onClick={() => setSelectedColor(color.name)}
-                            className={`size-6 rounded-full border-2 transition-colors border-[#7ea2ac] dark:border-white/35 hover:border-brand-teal ${color.value
+                            className={`size-6 rounded-full border-2 transition-colors border-[#7ea2ac] hover:border-brand-teal ${color.value
                                 } ${selectedColor === color.name
                                     ? 'border-brand-teal ring-2 ring-brand-teal ring-offset-2'
                                     : ''
@@ -88,7 +88,7 @@ export default function Filter() {
 
             {/* Price Range Filter */}
             <div>
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3] dark:border-white/10">
+                <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-6 pb-2 border-b border-[#e7f1f3]">
                     Price Range
                 </h4>
                 <div className="space-y-4">

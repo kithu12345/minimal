@@ -36,7 +36,7 @@ const products = [
 
 export default function FeaturedProducts() {
     return (
-        <section className="bg-white dark:bg-black/10">
+        <section className="bg-white">
             <div className="max-w-7xl mx-auto px-10 py-24">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

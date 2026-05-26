@@ -29,7 +29,7 @@ export default function ProductCard({ id, title, color, price, image }: ProductC
             className="product-card group cursor-pointer"
             onClick={() => router.push(`/products/${id}`)}
         >
-            <div className="relative aspect-[4/5] bg-background-light dark:bg-white/5 overflow-hidden mb-4">
+            <div className="relative aspect-[4/5] bg-background-light overflow-hidden mb-4">
                 <Image
                     alt={title}
                     src={image}

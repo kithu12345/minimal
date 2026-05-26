@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
 import type { Product } from '@/data/products';
+import { ChevronDown } from 'lucide-react';
 
 interface ProductGridProps {
     products: Product[];
@@ -35,7 +36,7 @@ export default function ProductGrid({
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className="flex justify-between items-center mb-8 pb-4 border-b border-[#e7f1f3] dark:border-white/10"
+                className="flex justify-between items-center mb-8 pb-4 border-b border-[#e7f1f3]"
             >
                 <p className="text-xs text-[#4e8b97] uppercase tracking-widest">
                     Showing {showingStart}-{showingEnd} of {totalProducts} products
@@ -44,16 +45,19 @@ export default function ProductGrid({
                     <span className="text-xs uppercase tracking-widest font-bold">
                         Sort By:
                     </span>
-                    <select
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value)}
-                        className="bg-transparent border-none text-xs uppercase tracking-widest focus:ring-0 cursor-pointer py-0 pr-8"
-                    >
-                        <option>Newest Arrivals</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Recommended</option>
-                    </select>
+                    <div className="relative flex items-center">
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="bg-transparent border-none text-xs uppercase tracking-widest cursor-pointer py-0 pr-8 appearance-none focus:outline-none focus:ring-0 focus:border-none"
+                        >
+                            <option>Newest Arrivals</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Recommended</option>
+                        </select>
+                        <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-gray-400" />
+                    </div>
                 </div>
             </motion.div>
 
@@ -70,7 +74,7 @@ export default function ProductGrid({
                         <ProductCard
                             id={product.id}
                             title={product.name}
-                            color={product.color}
+                            color={product.colors?.[0]?.name || 'Standard'}
                             price={product.price}
                             image={product.image}
                         />

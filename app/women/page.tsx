@@ -34,7 +34,7 @@ export default function WomenShop() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="bg-white dark:bg-black/10 py-16 px-10 border-b border-[#e7f1f3] dark:border-white/10"
+                className="bg-black/10 py-16 px-10 border-b border-[#e7f1f3]"
             >
                 <div className="max-w-7xl mx-auto">
                     <Breadcrumb

@@ -30,7 +30,7 @@ export default function ProductImage({ product }: ProductImageProps) {
               border-2 transition-all duration-200
               ${selectedImage === idx
                 ? 'border-brand-teal'
-                : 'border-[#e7f1f3] dark:border-white/10 hover:border-brand-teal'
+                : 'border-[#e7f1f3] hover:border-brand-teal'
               }
             `}
           >
@@ -50,7 +50,7 @@ export default function ProductImage({ product }: ProductImageProps) {
 
       <div
         className={`
-          flex-1 bg-gray-100 dark:bg-white/5 overflow-hidden h-[400px] sm:h-full`}
+          flex-1 bg-gray-100 overflow-hidden h-[400px] sm:h-full`}
         onMouseEnter={() => setIsZoomed(true)}
         onMouseLeave={() => setIsZoomed(false)}
       >

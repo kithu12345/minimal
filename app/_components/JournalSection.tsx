@@ -33,7 +33,7 @@ export default function JournalSection() {
                     <p className="text-[#4e8b97] text-lg leading-relaxed">
                         Discover the stories behind our sustainable practices and the craftsmen who bring our minimalist visions to life. From fabric sourcing to timeless design, explore our journey.
                     </p>
-                    <button className="px-10 py-4 border border-[#0e191b] dark:border-white text-[#0e191b] dark:text-white text-xs font-bold uppercase tracking-widest hover:bg-[#0e191b] hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+                    <button className="px-10 py-4 border border-[#0e191b] text-[#0e191b] text-xs font-bold uppercase tracking-widest hover:bg-[#0e191b] hover:text-white transition-all">
                         Read the Journal
                     </button>
                 </motion.div>

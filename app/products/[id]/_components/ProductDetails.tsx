@@ -53,7 +53,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             </Link>
           </li>
           <li>/</li>
-          <li className="font-bold text-[#0e191b] dark:text-white line-clamp-1">
+          <li
+            className="hover:text-primary transition-colors capitalize"
+          >
             {product.name}
           </li>
         </ol>
@@ -108,7 +110,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 className={`
                   size-10 rounded-full transition-all duration-200
                   ${selectedColor?.id === color.id
-                    ? 'ring-2 ring-brand-teal ring-offset-4 dark:ring-offset-background-dark'
+                    ? 'ring-2 ring-brand-teal ring-offset-4'
                     : 'hover:ring-2 hover:ring-gray-300 hover:ring-offset-2'
                   }
                 `}
@@ -142,7 +144,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   py-4 text-xs font-medium transition-all duration-200 border
                   ${selectedSize === size
                     ? 'border-brand-teal bg-brand-teal text-white font-bold'
-                    : 'border-[#e7f1f3] dark:border-white/10 hover:border-brand-teal'
+                    : 'border-[#e7f1f3] hover:border-brand-teal'
                   }
                 `}
               >
@@ -162,7 +164,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="size-10 border border-[#e7f1f3] dark:border-white/10 hover:border-brand-teal transition-colors rounded-lg"
+            className="size-10 border border-[#e7f1f3] hover:border-brand-teal transition-colors"
           >
             -
           </button>
@@ -171,7 +173,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
           <button
             onClick={() => setQuantity(quantity + 1)}
-            className="size-10 border border-[#e7f1f3] dark:border-white/10 hover:border-brand-teal transition-colors rounded-lg"
+            className="size-10 border border-[#e7f1f3] hover:border-brand-teal transition-colors"
           >
             +
           </button>
@@ -183,7 +185,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         {/* Add to Cart */}
         <button
           onClick={handleAddToCart}
-          className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all shadow-lg flex items-center justify-center gap-2 rounded-lg"
+          className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-2 rounded-lg"
         >
           <span className="material-symbols-outlined text-lg">
             shopping_bag
@@ -192,7 +194,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         </button>
 
         {/* Wishlist */}
-        <button className="flex-1 py-5 border border-[#0e191b] dark:border-white text-xs font-bold uppercase tracking-[0.2em] shadow-lg hover:bg-[#0e191b] hover:text-white dark:hover:bg-white dark:hover:text-[#0e191b] transition-all flex items-center justify-center gap-2 rounded-lg">
+        <button
+          className="flex-1 py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-2 rounded-lg"
+        >
           <span className="material-symbols-outlined text-lg">
             favorite
           </span>
@@ -201,9 +205,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       </div>
 
       {/* Accordion Details */}
-      <div className="border-t border-[#e7f1f3] dark:border-white/10">
+      <div className="border-t border-[#e7f1f3]">
         {/* Product Details Accordion */}
-        <div className="border-b border-[#e7f1f3] dark:border-white/10 py-6">
+        <div className="border-b border-[#e7f1f3] py-6">
           <button
             onClick={() => toggleAccordion('details')}
             className="flex justify-between items-center w-full group"
@@ -239,7 +243,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         </div>
 
         {/* Material & Care Accordion */}
-        <div className="border-b border-[#e7f1f3] dark:border-white/10 py-6">
+        <div className="border-b border-[#e7f1f3]">
           <button
             onClick={() => toggleAccordion('care')}
             className="flex justify-between items-center w-full group"
@@ -282,7 +286,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         </div>
 
         {/* Shipping & Returns Accordion */}
-        <div className="border-b border-[#e7f1f3] dark:border-white/10 py-6">
+        <div className="border-b border-[#e7f1f3] py-6">
           <button
             onClick={() => toggleAccordion('shipping')}
             className="flex justify-between items-center w-full group"

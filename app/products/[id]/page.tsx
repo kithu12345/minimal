@@ -23,7 +23,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <main className="bg-background-light dark:bg-background-dark transition-colors duration-200">
+    <main className="bg-background-light transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-10 sm:px-6 lg:px-10 py-8 lg:py-12">
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
