@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import useNavigateTo from "@/hooks/useNavigateTo";
 
 interface CartItem {
     id: string;
@@ -14,10 +13,10 @@ interface CartItem {
 
 interface OrderSummaryProps {
     items: CartItem[];
+    isProcessing?: boolean;
 }
 
-export function OrderSummary({ items }: OrderSummaryProps) {
-    const navigateTo = useNavigateTo();
+export function OrderSummary({ items, isProcessing }: OrderSummaryProps) {
     const subtotal = items.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0
@@ -48,7 +47,7 @@ export function OrderSummary({ items }: OrderSummaryProps) {
 
                     <div className="flex justify-between text-sm">
                         <span className="text-[#4e8b97]">Shipping</span>
-                        <span className="text-[10px] uppercase tracking-widest">
+                        <span className="text-[10px] uppercase tracking-widest text-[#15b097]">
                             Free
                         </span>
                     </div>
@@ -63,26 +62,28 @@ export function OrderSummary({ items }: OrderSummaryProps) {
 
                 <div className="flex justify-between items-baseline pt-6 border-t border-[#e7f1f3] mb-10">
                     <span className="text-xs font-bold uppercase tracking-widest">
-                        Total
+                        Total Amount
                     </span>
-                    <span className="text-2xl font-light tracking-tight">
+                    <span className="text-2xl font-light tracking-tight text-brand-teal">
                         Rs {subtotal.toFixed(2)}
                     </span>
                 </div>
 
                 <button
-                    onClick={() => navigateTo('/payment')}
-                    className="w-full py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] transition-all flex items-center justify-center gap-3"
+                    type="submit"
+                    form="payment-form"
+                    disabled={isProcessing}
+                    className="w-full py-5 bg-brand-teal text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#1499b5] disabled:bg-gray-300 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
                 >
-                    Continue to Payment
-                    <span className="material-symbols-outlined text-base">arrow_forward</span>
+                    {isProcessing ? "Processing..." : "Pay Now"}
+                    {!isProcessing && <span className="material-symbols-outlined text-base">lock</span>}
                 </button>
 
-                <div className="mt-8 space-y-4">
-                    <p className="text-[10px] text-[#4e8b97] leading-relaxed text-center uppercase tracking-widest">
-                        Secure payment &amp; worldwide delivery.
+                <div className="mt-8 space-y-4 text-center">
+                    <p className="text-[10px] text-[#4e8b97] leading-relaxed uppercase tracking-widest">
+                        Encrypted with 256-bit SSL security.
                         <br />
-                        Free returns within 30 days.
+                        Your payment is safe and secure.
                     </p>
                 </div>
             </div>
