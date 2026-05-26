@@ -16,13 +16,15 @@ export default function Footer() {
         { label: 'Women', path: '/women' },
         { label: 'Men', path: '/men' },
         { label: 'About', path: '/about' },
+        { label: 'Contact', path: '/contact' },
     ]
 
-    const serviceLinks = [
-        { label: 'Shipping', path: '/' },
-        { label: 'Returns', path: '/' },
-        { label: 'Size Guide', path: '/' },
-        { label: 'Contact', path: '/contact' },
+    const support = [
+        { label: 'Shipping' },
+        { label: 'Returns' },
+        { label: 'Size Guide' },
+        { label: 'FAQ' },
+        { label: 'Customer Support' },
     ]
 
     const legalLinks = [
@@ -31,10 +33,10 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="bg-white dark:bg-black/20 border-t border-[#e7f1f3] dark:border-white/10 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-10">
-            
+        <footer className="bg-black/20 py-12 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-10">
+
             {/* MAIN GRID */}
-            <div className="max-w-[1600px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-10 sm:gap-12 lg:gap-14">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-10 sm:gap-12 lg:gap-14">
 
                 {/* Brand */}
                 <div className="space-y-6 max-w-sm">
@@ -79,12 +81,11 @@ export default function Footer() {
                 <div className="w-full">
                     <h4 className="font-bold mb-6 text-sm uppercase tracking-widest">Service</h4>
                     <ul className="space-y-4 text-sm text-[#4e8b97]">
-                        {serviceLinks.map((item) => (
+                        {support.map((item) => (
                             <li key={item.label}>
                                 <button
                                     type="button"
                                     className="cursor-pointer hover:text-primary transition-colors"
-                                    onClick={() => navigateTo(item.path, true)}
                                 >
                                     {item.label}
                                 </button>
@@ -100,10 +101,9 @@ export default function Footer() {
                         Exclusives and new arrivals directly to your inbox.
                     </p>
 
-                    {/* FLEX FIX */}
                     <div className="flex flex-col sm:flex-row gap-2 w-full">
                         <input
-                            className="w-full sm:flex-1 bg-white dark:bg-white border-none px-4 py-3 text-sm focus:ring-2 focus:ring-primary/50"
+                            className="w-full sm:flex-1 bg-white border-none px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal"
                             placeholder="Email Address"
                             type="email"
                         />
@@ -115,8 +115,8 @@ export default function Footer() {
             </div>
 
             {/* BOTTOM */}
-            <div className="max-w-[1600px] mx-auto mt-12 sm:mt-16 pt-8 border-t border-[#e7f1f3] dark:border-white/10 flex flex-col md:flex-row justify-between items-center md:items-start gap-4 text-[10px] uppercase tracking-[0.2em] text-[#4e8b97] text-center md:text-left">
-                
+            <div className="max-w-[1600px] mx-auto mt-12 sm:mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center md:items-start gap-4 text-[10px] uppercase tracking-[0.2em] text-[#4e8b97] text-center md:text-left">
+
                 <p className="leading-relaxed max-w-md">
                     © {currentYear} Minimal Apparel. Crafted for the discerning.
                 </p>

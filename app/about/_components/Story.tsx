@@ -58,7 +58,7 @@ export default function Story() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="space-y-6 text-[#4e8b97] dark:text-gray-400 font-light leading-relaxed text-sm md:text-base"
+                        className="space-y-6 text-gray-400 font-light leading-relaxed text-sm md:text-base"
                     >
                         <p>
                             Minimal was born out of a desire to bypass the relentless cycle of fast-fashion and focus on what truly matters: materiality, anatomy, and longevity. We began in a small atelier in Copenhagen, experimenting with raw construction techniques and unrefined natural textiles.
@@ -107,7 +107,7 @@ export default function Story() {
             </div>
 
             {/* Metrics Ribbon */}
-            <div className="bg-white dark:bg-black/15 border-y border-[#e7f1f3] dark:border-white/10 py-16 px-8 rounded-2xl">
+            <div className="bg-white  border border-[#e7f1f3] py-16 px-8 rounded-2xl">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-[1200px] mx-auto">
                     {stats.map((stat, index) => (
                         <motion.div
@@ -138,7 +138,7 @@ export default function Story() {
                     <h2 className="text-3xl md:text-4xl font-serif italic">
                         Values that form us
                     </h2>
-                    <p className="text-sm text-[#4e8b97] dark:text-gray-400 font-light">
+                    <p className="text-sm text-[#4e8b97] font-light">
                         Every collection is defined by three unyielding standards of conscious creation.
                     </p>
                 </div>
@@ -154,17 +154,17 @@ export default function Story() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
-                                className="p-8 bg-white dark:bg-black/20 border border-[#e7f1f3] dark:border-white/10 flex flex-col items-center text-center space-y-5 rounded-lg"
+                                className="p-8 bg-white border border-[#e7f1f3] flex flex-col items-center text-center space-y-5 rounded-lg"
                             >
                                 <div className="p-4 rounded-full bg-brand-teal/10 text-brand-teal">
                                     <IconComponent className="size-6" />
                                 </div>
 
-                                <h3 className="text-xl font-serif italic text-soft-charcoal dark:text-white">
+                                <h3 className="text-xl font-serif italic text-soft-charcoal text-black">
                                     {val.title}
                                 </h3>
 
-                                <p className="text-sm font-light leading-relaxed">
+                                <p className="text-sm font-light leading-relaxed text-black/50">
                                     {val.description}
                                 </p>
                             </motion.div>

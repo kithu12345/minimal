@@ -35,7 +35,7 @@ export default function Pagination({
           disabled={currentPage === 1}
           className={`px-4 py-2 text-sm font-medium transition-all flex items-center gap-1 ${currentPage === 1
             ? 'text-gray-400 cursor-not-allowed'
-            : 'text-[#4e8b97] hover:text-brand-teal hover:bg-[#e7f1f3] dark:hover:bg-white/10'
+            : 'text-[#4e8b97] hover:text-brand-teal hover:bg-[#e7f1f3]'
             }`}
         >
           <span className="material-symbols-outlined text-base">
@@ -64,7 +64,7 @@ export default function Pagination({
           disabled={currentPage === totalPages}
           className={`px-4 py-2 text-sm font-medium transition-all flex items-center gap-1 ${currentPage === totalPages
             ? 'text-gray-400 cursor-not-allowed'
-            : 'text-[#4e8b97] hover:text-brand-teal hover:bg-[#e7f1f3] dark:hover:bg-white/10'
+            : 'text-[#4e8b97] hover:text-brand-teal hover:bg-[#e7f1f3]'
             }`}
         >
           Next

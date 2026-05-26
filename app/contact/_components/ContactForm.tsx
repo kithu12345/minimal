@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, User, FileText, CheckCircle2, Loader2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Loader2, ArrowRight } from 'lucide-react';
 
 const categories = [
     { id: 'order', label: 'Order & Shipping' },
@@ -17,7 +17,7 @@ export default function ContactForm() {
     const [email, setEmail] = useState('');
     const [category, setCategory] = useState('order');
     const [message, setMessage] = useState('');
-    
+
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -60,7 +60,7 @@ export default function ContactForm() {
     const mailtoUrl = `mailto:support@minimal.com?subject=[${categories.find(c => c.id === category)?.label}] Issue from ${encodeURIComponent(name)}&body=Name: ${encodeURIComponent(name)}%0D%0AEmail: ${encodeURIComponent(email)}%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
 
     return (
-        <div className="bg-white dark:bg-black/25 border border-[#e7f1f3] dark:border-white/10 p-8 sm:p-10 rounded-2xl shadow-xl shadow-soft-charcoal/5 relative overflow-hidden">
+        <div className="bg-white border border-[#e7f1f3] p-8 sm:p-12 md:p-16 rounded-3xl relative overflow-hidden">
             <AnimatePresence mode="wait">
                 {status !== 'success' ? (
                     <motion.form
@@ -70,76 +70,82 @@ export default function ContactForm() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.4 }}
-                        className="space-y-8"
+                        className="space-y-10"
                         noValidate
                     >
-                        <div className="space-y-2">
-                            <h3 className="text-2xl font-serif italic text-soft-charcoal dark:text-white">
+                        <div className="space-y-2 text-center lg:text-left">
+                            <h1 className="font-serif text-3xl font-normal tracking-wide text-[#1a1a1a]">
                                 Report an Issue
-                            </h3>
-                            <p className="text-xs text-[#4e8b97] dark:text-gray-400 font-light">
+                            </h1>
+                            <p className="text-xs text-brand-teal tracking-wider">
                                 Fill out the details below. Our concierge support team will resolve your request shortly.
                             </p>
                         </div>
 
-                        {/* Asymmetric fields grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Form Fields Stack */}
+                        <div className="space-y-8">
                             {/* Name Input */}
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-wider font-semibold text-soft-charcoal/80 dark:text-white/80 block">
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    id="name"
+                                    value={name}
+                                    onChange={(e) => {
+                                        setName(e.target.value)
+                                        if (errors.name) setErrors(prev => ({ ...prev, name: '' }))
+                                    }}
+                                    className="w-full bg-transparent border-b border-gray-300 py-3.5 px-1 text-sm outline-none focus:border-brand-teal focus:ring-0 transition-colors peer placeholder-transparent text-[#1a1a1a]"
+                                    placeholder="Your Name"
+                                />
+                                <label
+                                    htmlFor="name"
+                                    className="absolute left-1 top-3.5 text-xs text-[#4e8b97] tracking-wider pointer-events-none transition-all duration-300 
+                                    peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-[#4e8b97] 
+                                    peer-focus:top-[-10px] peer-focus:text-[10px] peer-focus:text-brand-teal 
+                                    peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#4e8b97]"
+                                >
                                     Your Name
                                 </label>
-                                <div className="relative">
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4e8b97]/60 dark:text-gray-500">
-                                        <User className="size-4" />
-                                    </span>
-                                    <input
-                                        type="text"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        placeholder="Alexander..."
-                                        className={`w-full bg-[#f8f8f7] dark:bg-white/5 border px-11 py-3.5 text-sm rounded-lg focus:outline-none transition-all duration-300
-                                            ${errors.name 
-                                                ? 'border-red-400 focus:ring-1 focus:ring-red-400/50' 
-                                                : 'border-transparent focus:border-brand-teal focus:bg-white dark:focus:bg-black/30 focus:ring-1 focus:ring-brand-teal/20'
-                                            }`}
-                                    />
-                                </div>
                                 {errors.name && (
-                                    <p className="text-xs text-red-500 font-medium">{errors.name}</p>
+                                    <p className="text-rose-500 text-xs mt-1.5 flex items-center gap-1 font-semibold tracking-wide">
+                                        <span className="material-symbols-outlined text-[14px]">error</span> {errors.name}
+                                    </p>
                                 )}
                             </div>
 
                             {/* Email Input */}
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-wider font-semibold text-soft-charcoal/80 dark:text-white/80 block">
+                            <div className="relative">
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value={email}
+                                    onChange={(e) => {
+                                        setEmail(e.target.value)
+                                        if (errors.email) setErrors(prev => ({ ...prev, email: '' }))
+                                    }}
+                                    className="w-full bg-transparent border-b border-gray-300 py-3.5 px-1 text-sm outline-none focus:border-brand-teal focus:ring-0 transition-colors peer placeholder-transparent text-[#1a1a1a]"
+                                    placeholder="Your Email"
+                                />
+                                <label
+                                    htmlFor="email"
+                                    className="absolute left-1 top-3.5 text-xs text-[#4e8b97] tracking-wider pointer-events-none transition-all duration-300 
+                                    peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-[#4e8b97] 
+                                    peer-focus:top-[-10px] peer-focus:text-[10px] peer-focus:text-brand-teal 
+                                    peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#4e8b97]"
+                                >
                                     Your Email
                                 </label>
-                                <div className="relative">
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4e8b97]/60 dark:text-gray-500">
-                                        <Mail className="size-4" />
-                                    </span>
-                                    <input
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="alexander@domain.com"
-                                        className={`w-full bg-[#f8f8f7] dark:bg-white/5 border px-11 py-3.5 text-sm rounded-lg focus:outline-none transition-all duration-300
-                                            ${errors.email 
-                                                ? 'border-red-400 focus:ring-1 focus:ring-red-400/50' 
-                                                : 'border-transparent focus:border-brand-teal focus:bg-white dark:focus:bg-black/30 focus:ring-1 focus:ring-brand-teal/20'
-                                            }`}
-                                    />
-                                </div>
                                 {errors.email && (
-                                    <p className="text-xs text-red-500 font-medium">{errors.email}</p>
+                                    <p className="text-rose-500 text-xs mt-1.5 flex items-center gap-1 font-semibold tracking-wide">
+                                        <span className="material-symbols-outlined text-[14px]">error</span> {errors.email}
+                                    </p>
                                 )}
                             </div>
                         </div>
 
                         {/* Category Selector */}
-                        <div className="space-y-3">
-                            <label className="text-xs uppercase tracking-wider font-semibold text-soft-charcoal/80 dark:text-white/80 block">
+                        <div className="space-y-4">
+                            <label className="text-[10px] uppercase font-black tracking-[0.15em] text-[#4e8b97] block">
                                 Select Issue Category
                             </label>
                             <div className="flex flex-wrap gap-2.5">
@@ -148,10 +154,10 @@ export default function ContactForm() {
                                         key={cat.id}
                                         type="button"
                                         onClick={() => setCategory(cat.id)}
-                                        className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all duration-300 cursor-pointer
-                                            ${category === cat.id
+                                        className={`px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest rounded-full border transition-all duration-300 cursor-pointer
+                                                ${category === cat.id
                                                 ? 'bg-brand-teal border-brand-teal text-white shadow-md shadow-brand-teal/20'
-                                                : 'bg-[#f8f8f7] dark:bg-white/5 border-[#e7f1f3] dark:border-white/10 text-soft-charcoal/70 dark:text-gray-300 hover:border-brand-teal/50 hover:text-brand-teal'
+                                                : 'bg-white border-[#e7f1f3] text-[#4e8b97] hover:border-brand-teal/50 hover:text-brand-teal'
                                             }`}
                                     >
                                         {cat.label}
@@ -161,28 +167,30 @@ export default function ContactForm() {
                         </div>
 
                         {/* Message Input */}
-                        <div className="space-y-2">
-                            <label className="text-xs uppercase tracking-wider font-semibold text-soft-charcoal/80 dark:text-white/80 block">
+                        <div className="relative">
+                            <textarea
+                                id="message"
+                                value={message}
+                                onChange={(e) => {
+                                    setMessage(e.target.value)
+                                    if (errors.message) setErrors(prev => ({ ...prev, message: '' }))
+                                }}
+                                className="w-full bg-transparent border-b border-gray-300 py-3.5 px-1 text-sm outline-none focus:border-brand-teal focus:ring-0 transition-colors peer placeholder-transparent text-[#1a1a1a] min-h-[120px] resize-none"
+                                placeholder="Describe the Issue"
+                            />
+                            <label
+                                htmlFor="message"
+                                className="absolute left-1 top-3.5 text-xs text-[#4e8b97] tracking-wider pointer-events-none transition-all duration-300 
+                                    peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-[#4e8b97] 
+                                    peer-focus:top-[-10px] peer-focus:text-[10px] peer-focus:text-brand-teal 
+                                    peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#4e8b97]"
+                            >
                                 Describe the Issue
                             </label>
-                            <div className="relative">
-                                <span className="absolute left-4 top-4 text-[#4e8b97]/60 dark:text-gray-500">
-                                    <FileText className="size-4" />
-                                </span>
-                                <textarea
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Please share details about your order, tracking number, or issue you need assistance with..."
-                                    rows={5}
-                                    className={`w-full bg-[#f8f8f7] dark:bg-white/5 border pl-11 pr-4 py-3.5 text-sm rounded-lg focus:outline-none transition-all duration-300 resize-none
-                                        ${errors.message 
-                                            ? 'border-red-400 focus:ring-1 focus:ring-red-400/50' 
-                                            : 'border-transparent focus:border-brand-teal focus:bg-white dark:focus:bg-black/30 focus:ring-1 focus:ring-brand-teal/20'
-                                        }`}
-                                />
-                            </div>
                             {errors.message && (
-                                <p className="text-xs text-red-500 font-medium">{errors.message}</p>
+                                <p className="text-rose-500 text-xs mt-1.5 flex items-center gap-1 font-semibold tracking-wide">
+                                    <span className="material-symbols-outlined text-[14px]">error</span> {errors.message}
+                                </p>
                             )}
                         </div>
 
@@ -190,22 +198,16 @@ export default function ContactForm() {
                         <button
                             type="submit"
                             disabled={status === 'submitting'}
-                            className="w-full relative group px-8 py-4 bg-soft-charcoal text-white text-[11px] font-bold uppercase tracking-[0.3em] overflow-hidden cursor-pointer shadow-xl shadow-soft-charcoal/10 rounded-lg disabled:opacity-85 disabled:cursor-not-allowed transition-all duration-300"
+                            className="w-full py-4 bg-brand-teal hover:bg-brand-teal/90 text-white rounded-xl text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                         >
-                            <div className="absolute inset-0 bg-brand-teal transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
-                            <span className="relative flex items-center justify-center gap-3">
-                                {status === 'submitting' ? (
-                                    <>
-                                        <Loader2 className="size-4 animate-spin text-white" />
-                                        Transmitting Concierge...
-                                    </>
-                                ) : (
-                                    <>
-                                        Submit Request
-                                        <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-                                    </>
-                                )}
-                            </span>
+                            {status === 'submitting' ? (
+                                <Loader2 className="size-4 animate-spin" />
+                            ) : (
+                                <>
+                                    Submit Request
+                                    <ArrowRight size={14} />
+                                </>
+                            )}
                         </button>
                     </motion.form>
                 ) : (
@@ -228,11 +230,11 @@ export default function ContactForm() {
                         </div>
 
                         <div className="space-y-3 max-w-md mx-auto">
-                            <h3 className="text-3xl font-serif italic text-soft-charcoal dark:text-white">
+                            <h3 className="text-3xl font-serif italic text-soft-charcoal">
                                 Message Transmitted
                             </h3>
-                            <p className="text-sm font-light text-[#4e8b97] dark:text-gray-400 leading-relaxed">
-                                Thank you, <span className="font-semibold text-soft-charcoal dark:text-white">{name}</span>. Your issue ticket has been registered under category <span className="font-semibold text-brand-teal">{categories.find(c => c.id === category)?.label}</span>. We will follow up at <span className="font-semibold text-soft-charcoal dark:text-white">{email}</span> in a brief moment.
+                            <p className="text-sm font-light text-[#4e8b97] leading-relaxed">
+                                Thank you, <span className="font-semibold text-soft-charcoal">{name}</span>. Your issue ticket has been registered under category <span className="font-semibold text-brand-teal">{categories.find(c => c.id === category)?.label}</span>. We will follow up at <span className="font-semibold text-soft-charcoal">{email}</span> in a brief moment.
                             </p>
                         </div>
 
@@ -246,7 +248,7 @@ export default function ContactForm() {
                             <button
                                 type="button"
                                 onClick={handleReset}
-                                className="px-6 py-3 bg-[#f8f8f7] dark:bg-white/5 border border-transparent text-soft-charcoal dark:text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg hover:bg-[#d0e3e7] dark:hover:bg-white/10 transition-all duration-300"
+                                className="px-6 py-3 bg-[#f8f8f7] border border-transparent text-soft-charcoal text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg hover:bg-[#d0e3e7] transition-all duration-300"
                             >
                                 Submit Another Issue
                             </button>
@@ -254,6 +256,6 @@ export default function ContactForm() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 }
