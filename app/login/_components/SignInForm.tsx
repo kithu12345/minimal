@@ -15,6 +15,7 @@ export default function SignInForm({ onForgotPassword, onSignUp }: SignInFormPro
     const [showPassword, setShowPassword] = useState(false)
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
+    const [formError, setFormError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     const validateEmail = (val: string) => {
@@ -43,8 +44,9 @@ export default function SignInForm({ onForgotPassword, onSignUp }: SignInFormPro
         return true
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setFormError('')
 
         const isEmailValid = validateEmail(email)
         const isPassValid = validatePassword(password)
@@ -53,11 +55,34 @@ export default function SignInForm({ onForgotPassword, onSignUp }: SignInFormPro
 
         setIsLoading(true)
 
-        setTimeout(() => {
+        try {
+            const res = await fetch('/api/auth/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                setFormError(data.error || 'Something went wrong')
+                setIsLoading(false)
+                return
+            }
+
+            // Navigate to appropriate page on success
+            if (data.user?.role === 'admin') {
+                window.location.href = '/admin'
+            } else {
+                window.location.href = '/'
+            }
+        } catch (err) {
+            console.error('Sign in error:', err)
+            setFormError('Network error. Please try again.')
             setIsLoading(false)
-            // Navigate to home on success
-            window.location.href = '/'
-        }, 1500)
+        }
     }
 
     return (
@@ -70,6 +95,11 @@ export default function SignInForm({ onForgotPassword, onSignUp }: SignInFormPro
             onSubmit={handleSubmit}
             className="space-y-6"
         >
+            {formError && (
+                <div className="p-3 text-xs bg-rose-50 border border-rose-100 text-rose-600 rounded-xl font-semibold text-center">
+                    {formError}
+                </div>
+            )}
             {/* EMAIL INPUT */}
             <div className="relative">
                 <input

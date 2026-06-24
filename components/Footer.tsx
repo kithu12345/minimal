@@ -9,7 +9,7 @@ export default function Footer() {
     const navigateTo = useNavigateTo()
     const pathname = usePathname()
 
-    if (pathname === '/login') return null
+    if (pathname === '/login' || pathname.startsWith('/admin')) return null
 
     const navigationLinks = [
         { label: 'Shop All', path: '/shop' },
