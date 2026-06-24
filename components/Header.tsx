@@ -5,10 +5,18 @@ import { usePathname } from 'next/navigation'
 import LogoIcon from './LogoIcon'
 import useNavigateTo from '@/hooks/useNavigateTo'
 
+interface User {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+}
+
 export default function Header() {
     const [cartCount] = useState(0)
     const [menuOpen, setMenuOpen] = useState(false)
     const [profileOpen, setProfileOpen] = useState(false)
+    const [user, setUser] = useState<User | null>(null)
 
     const navigateTo = useNavigateTo()
     const pathname = usePathname()
@@ -50,6 +58,21 @@ export default function Header() {
     const isActive = (path: string) => pathname === path
 
     useEffect(() => {
+        async function fetchUser() {
+            try {
+                const res = await fetch('/api/auth/me')
+                if (res.ok) {
+                    const data = await res.json()
+                    setUser(data.user)
+                }
+            } catch (err) {
+                console.error('Failed to fetch user:', err)
+            }
+        }
+        fetchUser()
+    }, [pathname])
+
+    useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (
                 profileRef.current &&
@@ -69,7 +92,18 @@ export default function Header() {
         }
     }, [])
 
-    if (pathname === '/login') return null
+    const handleLogout = async () => {
+        setProfileOpen(false)
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' })
+            setUser(null)
+            navigateTo('/login', true)
+        } catch (err) {
+            console.error('Failed to logout:', err)
+        }
+    }
+
+    if (pathname === '/login' || pathname.startsWith('/admin')) return null
 
     return (
         <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
@@ -138,9 +172,13 @@ export default function Header() {
                     {/* PROFILE DROPDOWN */}
                     <div className="relative hidden sm:block" ref={profileRef}>
                         <button
-                            onClick={() =>
-                                setProfileOpen(!profileOpen)
-                            }
+                            onClick={() => {
+                                if (user) {
+                                    setProfileOpen(!profileOpen)
+                                } else {
+                                    navigateTo('/login', true)
+                                }
+                            }}
                             className="flex items-center justify-center rounded-xl size-9 sm:size-10 bg-gray-100 hover:bg-gray-200 transition"
                         >
                             <span className="material-symbols-outlined text-[20px]">
@@ -149,62 +187,60 @@ export default function Header() {
                         </button>
 
                         {/* DROPDOWN MENU */}
-                        <div
-                            className={`absolute right-0 top-14 w-64 rounded-2xl border border-gray-200 bg-white shadow-xl transition-all duration-200 overflow-hidden ${profileOpen
-                                ? 'opacity-100 visible translate-y-0'
-                                : 'opacity-0 invisible -translate-y-2'
-                                }`}
-                        >
-                            {/* USER INFO */}
-                            <div className="px-5 py-4 border-b border-gray-100">
-                                <h3 className="text-sm font-bold text-black">
-                                    John Doe
-                                </h3>
+                        {user && (
+                            <div
+                                className={`absolute right-0 top-14 w-64 rounded-2xl border border-gray-200 bg-white shadow-xl transition-all duration-200 overflow-hidden ${profileOpen
+                                    ? 'opacity-100 visible translate-y-0'
+                                    : 'opacity-0 invisible -translate-y-2'
+                                    }`}
+                            >
+                                {/* USER INFO */}
+                                <div className="px-5 py-4 border-b border-gray-100">
+                                    <h3 className="text-sm font-bold text-black">
+                                        {user.firstName} {user.lastName}
+                                    </h3>
 
-                                <p className="text-xs text-gray-500 mt-1">
-                                    johndoe@email.com
-                                </p>
-                            </div>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        {user.email}
+                                    </p>
+                                </div>
 
-                            {/* MENU ITEMS */}
-                            <div className="p-2">
-                                {profileMenu.map((item) => (
+                                {/* MENU ITEMS */}
+                                <div className="p-2">
+                                    {profileMenu.map((item) => (
+                                        <button
+                                            key={item.label}
+                                            onClick={() => {
+                                                setProfileOpen(false)
+                                                navigateTo(
+                                                    item.path,
+                                                    true
+                                                )
+                                            }}
+                                            className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-100 transition text-sm font-medium text-gray-700"
+                                        >
+                                            <span className="material-symbols-outlined text-[20px]">
+                                                {item.icon}
+                                            </span>
+
+                                            {item.label}
+                                        </button>
+                                    ))}
+
+                                    {/* LOGOUT */}
                                     <button
-                                        key={item.label}
-                                        onClick={() => {
-                                            setProfileOpen(false)
-                                            navigateTo(
-                                                item.path,
-                                                true
-                                            )
-                                        }}
-                                        className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-100 transition text-sm font-medium text-gray-700"
+                                        onClick={handleLogout}
+                                        className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-red-50 transition text-sm font-medium text-red-500"
                                     >
                                         <span className="material-symbols-outlined text-[20px]">
-                                            {item.icon}
+                                            logout
                                         </span>
 
-                                        {item.label}
+                                        Logout
                                     </button>
-                                ))}
-
-                                {/* LOGOUT */}
-                                <button
-                                    onClick={() => {
-                                        setProfileOpen(false)
-
-                                        console.log('Logout')
-                                    }}
-                                    className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-red-50 transition text-sm font-medium text-red-500"
-                                >
-                                    <span className="material-symbols-outlined text-[20px]">
-                                        logout
-                                    </span>
-
-                                    Logout
-                                </button>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
                     {/* MOBILE MENU BUTTON */}
