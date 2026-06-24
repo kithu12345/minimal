@@ -1,6 +1,7 @@
 import './globals.css';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import RouteGuard from '@/router/RouteGuard';
 
 import {
   Cormorant_Garamond,
@@ -41,9 +42,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-off-white font-display text-soft-charcoal selection:bg-brand-teal selection:text-white">
-        <Header />
-        {children}
-        <Footer />
+        <RouteGuard>
+          <Header />
+          {children}
+          <Footer />
+        </RouteGuard>
       </body>
     </html>
   );
