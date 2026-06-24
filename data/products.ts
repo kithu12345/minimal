@@ -26,6 +26,9 @@ export interface Product {
     rating?: number;
     reviewCount?: number;
 }
+
+
+
 export const allProducts: Product[] = [
     {
         id: 1,

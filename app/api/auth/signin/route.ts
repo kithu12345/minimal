@@ -54,6 +54,7 @@ export async function POST(request: Request) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role || 'user',
       },
     });
   } catch (error: any) {

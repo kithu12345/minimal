@@ -11,7 +11,14 @@ interface ForgotPasswordFormProps {
 export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) {
   const [resetEmail, setResetEmail] = useState('')
   const [resetEmailError, setResetEmailError] = useState('')
-  const [resetEmailSent, setResetEmailSent] = useState(false)
+  const [otp, setOtp] = useState('')
+  const [otpError, setOtpError] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [newPasswordError, setNewPasswordError] = useState('')
+
+  const [otpSent, setOtpSent] = useState(false)
+  const [sendingOtp, setSendingOtp] = useState(false)
+  const [resetSuccess, setResetSuccess] = useState(false)
   const [formError, setFormError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -28,22 +35,83 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
     return true
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setFormError('')
+  const validatePassword = (val: string) => {
+    if (!val) {
+      setNewPasswordError('New password is required')
+      return false
+    }
+    if (val.length < 6) {
+      setNewPasswordError('Password must be at least 6 characters')
+      return false
+    }
+    setNewPasswordError('')
+    return true
+  }
 
+  const handleSendOtp = async () => {
+    setFormError('')
     const isEmailValid = validateResetEmail(resetEmail)
     if (!isEmailValid) return
 
-    setIsLoading(true)
-
+    setSendingOtp(true)
     try {
-      const res = await fetch('/api/auth/forgot-password', {
+      const res = await fetch('/api/auth/otp/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: resetEmail }),
+        body: JSON.stringify({ email: resetEmail, type: 'forgot-password' }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setFormError(data.error || 'Failed to send OTP')
+      } else {
+        setOtpSent(true)
+      }
+    } catch (err) {
+      setFormError('Network error. Please try again.')
+    } finally {
+      setSendingOtp(false)
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormError('')
+    setOtpError('')
+    setNewPasswordError('')
+
+    const isEmailValid = validateResetEmail(resetEmail)
+    if (!isEmailValid) return
+
+    if (!otpSent) {
+      setFormError('Please request an OTP first.')
+      return
+    }
+
+    if (!otp) {
+      setOtpError('Verification OTP is required')
+      return
+    }
+
+    const isPasswordValid = validatePassword(newPassword)
+    if (!isPasswordValid) return
+
+    setIsLoading(true)
+
+    try {
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: resetEmail,
+          otp,
+          newPassword,
+        }),
       })
 
       const data = await res.json()
@@ -55,15 +123,18 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
       }
 
       setIsLoading(false)
-      setResetEmailSent(true)
+      setResetSuccess(true)
 
       setTimeout(() => {
         onBack()
-        setResetEmailSent(false)
+        setResetSuccess(false)
         setResetEmail('')
-      }, 4000)
+        setOtp('')
+        setNewPassword('')
+        setOtpSent(false)
+      }, 3000)
     } catch (err) {
-      console.error('Forgot password error:', err)
+      console.error('Reset password error:', err)
       setFormError('Network error. Please try again.')
       setIsLoading(false)
     }
@@ -84,38 +155,115 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
           {formError}
         </div>
       )}
-      {/* EMAIL INPUT */}
-      <div className="relative">
-        <input
-          type="email"
-          id="resetEmail"
-          value={resetEmail}
-          onChange={(e) => {
-            setResetEmail(e.target.value)
-            if (resetEmailError) setResetEmailError('')
-          }}
-          className="w-full bg-transparent border-b border-gray-300 py-3.5 px-1 text-sm outline-none focus:border-brand-teal focus:ring-0 transition-colors peer placeholder-transparent text-[#1a1a1a]"
-          placeholder="Email Address"
-          disabled={resetEmailSent}
-        />
-        <label
-          htmlFor="resetEmail"
-          className="absolute left-1 top-3.5 text-xs text-[#4e8b97] tracking-wider pointer-events-none transition-all duration-300 
-            peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-[#4e8b97] 
-            peer-focus:top-[-10px] peer-focus:text-[10px] peer-focus:text-brand-teal 
-            peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#4e8b97]"
-        >
-          Email Address
-        </label>
-        {resetEmailError && (
-          <p className="text-rose-500 text-xs mt-1.5 flex items-center gap-1 font-semibold tracking-wide">
-            <span className="material-symbols-outlined text-[14px]">error</span> {resetEmailError}
-          </p>
+
+      {/* EMAIL INPUT WITH SEND OTP BUTTON */}
+      <div className="relative flex items-end gap-4">
+        <div className="relative flex-1">
+          <input
+            type="email"
+            id="resetEmail"
+            value={resetEmail}
+            onChange={(e) => {
+              setResetEmail(e.target.value)
+              if (resetEmailError) setResetEmailError('')
+            }}
+            className="w-full bg-transparent border-b border-gray-300 py-3.5 px-1 text-sm outline-none focus:border-brand-teal focus:ring-0 transition-colors peer placeholder-transparent text-[#1a1a1a]"
+            placeholder="Email Address"
+            disabled={otpSent || resetSuccess}
+          />
+          <label
+            htmlFor="resetEmail"
+            className="absolute left-1 top-3.5 text-xs text-[#4e8b97] tracking-wider pointer-events-none transition-all duration-300 
+              peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-[#4e8b97] 
+              peer-focus:top-[-10px] peer-focus:text-[10px] peer-focus:text-brand-teal 
+              peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#4e8b97]"
+          >
+            Email Address
+          </label>
+        </div>
+        {!otpSent && (
+          <button
+            type="button"
+            onClick={handleSendOtp}
+            disabled={sendingOtp || resetSuccess}
+            className="py-2 px-4 bg-brand-teal hover:bg-brand-teal/90 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 flex-shrink-0 cursor-pointer disabled:opacity-50"
+          >
+            {sendingOtp ? 'Sending...' : 'Send OTP'}
+          </button>
         )}
       </div>
+      {resetEmailError && (
+        <p className="text-rose-500 text-xs mt-1.5 flex items-center gap-1 font-semibold tracking-wide">
+          <span className="material-symbols-outlined text-[14px]">error</span> {resetEmailError}
+        </p>
+      )}
+
+      {/* OTP INPUT */}
+      {otpSent && !resetSuccess && (
+        <div className="relative">
+          <input
+            type="text"
+            id="otp"
+            value={otp}
+            onChange={(e) => {
+              setOtp(e.target.value)
+              if (otpError) setOtpError('')
+            }}
+            className="w-full bg-transparent border-b border-gray-300 py-3.5 px-1 text-sm outline-none focus:border-brand-teal focus:ring-0 transition-colors peer placeholder-transparent text-[#1a1a1a]"
+            placeholder="Verification OTP"
+            required
+          />
+          <label
+            htmlFor="otp"
+            className="absolute left-1 top-3.5 text-xs text-[#4e8b97] tracking-wider pointer-events-none transition-all duration-300 
+              peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-[#4e8b97] 
+              peer-focus:top-[-10px] peer-focus:text-[10px] peer-focus:text-brand-teal 
+              peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#4e8b97]"
+          >
+            Verification OTP
+          </label>
+          {otpError && (
+            <p className="text-rose-500 text-xs mt-1.5 flex items-center gap-1 font-semibold tracking-wide">
+              <span className="material-symbols-outlined text-[14px]">error</span> {otpError}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* NEW PASSWORD INPUT */}
+      {otpSent && !resetSuccess && (
+        <div className="relative">
+          <input
+            type="password"
+            id="newPassword"
+            value={newPassword}
+            onChange={(e) => {
+              setNewPassword(e.target.value)
+              if (newPasswordError) setNewPasswordError('')
+            }}
+            className="w-full bg-transparent border-b border-gray-300 py-3.5 px-1 text-sm outline-none focus:border-brand-teal focus:ring-0 transition-colors peer placeholder-transparent text-[#1a1a1a]"
+            placeholder="New Password"
+            required
+          />
+          <label
+            htmlFor="newPassword"
+            className="absolute left-1 top-3.5 text-xs text-[#4e8b97] tracking-wider pointer-events-none transition-all duration-300 
+              peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-[#4e8b97] 
+              peer-focus:top-[-10px] peer-focus:text-[10px] peer-focus:text-brand-teal 
+              peer-[:not(:placeholder-shown)]:top-[-10px] peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#4e8b97]"
+          >
+            New Password
+          </label>
+          {newPasswordError && (
+            <p className="text-rose-500 text-xs mt-1.5 flex items-center gap-1 font-semibold tracking-wide">
+              <span className="material-symbols-outlined text-[14px]">error</span> {newPasswordError}
+            </p>
+          )}
+        </div>
+      )}
 
       {/* SUCCESS MESSAGE */}
-      {resetEmailSent && (
+      {resetSuccess && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -127,27 +275,29 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
             </svg>
           </div>
           <p className="text-xs text-emerald-700 font-medium">
-            Password reset link sent!<br />
+            Password reset successfully!<br />
             Redirecting to sign in...
           </p>
         </motion.div>
       )}
 
-      {/* SEND RESET LINK BUTTON */}
-      <button
-        type="submit"
-        disabled={isLoading || resetEmailSent}
-        className="w-full py-4 bg-brand-teal hover:bg-brand-teal/90 text-white rounded-xl text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-6"
-      >
-        {isLoading ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          <>
-            Send Reset Link
-            <ArrowRight size={14} />
-          </>
-        )}
-      </button>
+      {/* SUBMIT BUTTON */}
+      {otpSent && !resetSuccess && (
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full py-4 bg-brand-teal hover:bg-brand-teal/90 text-white rounded-xl text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-6"
+        >
+          {isLoading ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <>
+              Reset Password
+              <ArrowRight size={14} />
+            </>
+          )}
+        </button>
+      )}
 
       {/* FOOTER */}
       <div className="pt-4 border-t border-[#e7f1f3] text-center space-y-3">

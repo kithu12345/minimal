@@ -38,6 +38,7 @@ export async function GET() {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role || 'user',
       },
     });
   } catch (error: any) {

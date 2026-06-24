@@ -5,21 +5,24 @@ import crypto from 'crypto';
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { email, type } = await request.json();
 
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email address is required' },
-        { status: 400 }
-      );
+    if (!email || !type) {
+      return NextResponse.json({ error: 'Email and type are required' }, { status: 400 });
+    }
+
+    if (type !== 'signup' && type !== 'forgot-password') {
+      return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 });
     }
 
     const user = await findUserByEmail(email);
-    if (!user) {
-      return NextResponse.json(
-        { error: 'No account found with this email' },
-        { status: 400 }
-      );
+
+    if (type === 'signup' && user) {
+      return NextResponse.json({ error: 'An account with this email already exists' }, { status: 400 });
+    }
+
+    if (type === 'forgot-password' && !user) {
+      return NextResponse.json({ error: 'No account found with this email' }, { status: 400 });
     }
 
     // Generate 6-digit OTP
@@ -30,15 +33,15 @@ export async function POST(request: Request) {
       email,
       otp,
       expiresAt,
-      type: 'forgot-password',
+      type,
     });
 
-    const subject = 'Reset your Minimal Password';
-    const bodyText = `Your password reset OTP is ${otp}. It will expire in 5 minutes.`;
+    const subject = type === 'signup' ? 'Verify your Minimal Sign Up' : 'Reset your Minimal Password';
+    const bodyText = `Your OTP is ${otp}. It will expire in 5 minutes.`;
     const bodyHtml = `
       <div style="font-family: sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #e7f1f3; rounded: 12px;">
         <h2 style="color: #1a1a1a; font-family: serif; font-size: 24px;">MINIMAL</h2>
-        <p style="font-size: 14px; color: #555;">Use the following One Time Password (OTP) to reset your password:</p>
+        <p style="font-size: 14px; color: #555;">Use the following One Time Password (OTP) to complete your request:</p>
         <div style="background-color: #f6f8f8; padding: 16px; text-align: center; border-radius: 8px; margin: 24px 0;">
           <span style="font-size: 32px; font-weight: bold; letter-spacing: 6px; color: #17b0cf;">${otp}</span>
         </div>
@@ -53,14 +56,9 @@ export async function POST(request: Request) {
       html: bodyHtml,
     });
 
-    return NextResponse.json({
-      message: 'If the email exists, an OTP has been sent.',
-    });
+    return NextResponse.json({ success: true, message: 'OTP sent successfully' });
   } catch (error: any) {
-    console.error('Forgot password error:', error);
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    console.error('OTP Send error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

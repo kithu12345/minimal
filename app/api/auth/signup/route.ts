@@ -1,17 +1,17 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { findUserByEmail, saveUser } from '@/lib/db';
+import { findUserByEmail, saveUser, verifyOtp } from '@/lib/db';
 import { hashPassword, generateSessionId } from '@/lib/auth';
 import { saveSession } from '@/lib/db';
 import crypto from 'crypto';
 
 export async function POST(request: Request) {
   try {
-    const { firstName, lastName, email, password } = await request.json();
+    const { firstName, lastName, email, password, otp } = await request.json();
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email || !password || !otp) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'All fields, including OTP, are required' },
         { status: 400 }
       );
     }
@@ -31,6 +31,15 @@ export async function POST(request: Request) {
       );
     }
 
+    // Verify OTP
+    const isOtpValid = await verifyOtp(email, otp, 'signup');
+    if (!isOtpValid) {
+      return NextResponse.json(
+        { error: 'Invalid or expired OTP' },
+        { status: 400 }
+      );
+    }
+
     const { hash, salt } = hashPassword(password);
     const userId = crypto.randomUUID();
 
@@ -42,6 +51,7 @@ export async function POST(request: Request) {
       passwordHash: hash,
       salt,
       createdAt: new Date().toISOString(),
+      role: 'user' as const,
     };
 
     await saveUser(newUser);
@@ -70,6 +80,7 @@ export async function POST(request: Request) {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         email: newUser.email,
+        role: newUser.role,
       },
     });
   } catch (error: any) {

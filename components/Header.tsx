@@ -103,7 +103,7 @@ export default function Header() {
         }
     }
 
-    if (pathname === '/login') return null
+    if (pathname === '/login' || pathname.startsWith('/admin')) return null
 
     return (
         <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
