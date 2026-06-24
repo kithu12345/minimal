@@ -12,6 +12,7 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
   const [resetEmail, setResetEmail] = useState('')
   const [resetEmailError, setResetEmailError] = useState('')
   const [resetEmailSent, setResetEmailSent] = useState(false)
+  const [formError, setFormError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const validateResetEmail = (val: string) => {
@@ -27,15 +28,32 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
     return true
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setFormError('')
 
     const isEmailValid = validateResetEmail(resetEmail)
     if (!isEmailValid) return
 
     setIsLoading(true)
 
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: resetEmail }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setFormError(data.error || 'Something went wrong')
+        setIsLoading(false)
+        return
+      }
+
       setIsLoading(false)
       setResetEmailSent(true)
 
@@ -43,8 +61,12 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
         onBack()
         setResetEmailSent(false)
         setResetEmail('')
-      }, 3000)
-    }, 1500)
+      }, 4000)
+    } catch (err) {
+      console.error('Forgot password error:', err)
+      setFormError('Network error. Please try again.')
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -57,6 +79,11 @@ export default function ForgotPasswordForm({ onBack }: ForgotPasswordFormProps) 
       onSubmit={handleSubmit}
       className="space-y-5"
     >
+      {formError && (
+        <div className="p-3 text-xs bg-rose-50 border border-rose-100 text-rose-600 rounded-xl font-semibold text-center">
+          {formError}
+        </div>
+      )}
       {/* EMAIL INPUT */}
       <div className="relative">
         <input

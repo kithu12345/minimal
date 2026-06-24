@@ -1,0 +1,11 @@
+[
+  {
+    "id": "c7b39a3e-468b-4d7a-8b89-1df6b5c3ff32",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@email.com",
+    "passwordHash": "a102563f198451793de5090fb90255a420b196e20316b63919997af0a5aaf0e747de9013efead5bb8aa335b4b413172f9060c374429d30d0757197f4253372b3",
+    "salt": "e3b0c44298fc1c149afbf4c8996fb924",
+    "createdAt": "2026-06-24T14:35:00.000Z"
+  }
+]

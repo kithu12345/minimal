@@ -18,6 +18,7 @@ export default function SignUpForm({ onSignIn }: SignUpFormProps) {
     const [lastNameError, setLastNameError] = useState('')
     const [signupEmailError, setSignupEmailError] = useState('')
     const [signupPasswordError, setSignupPasswordError] = useState('')
+    const [formError, setFormError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     const validateFirstName = (val: string) => {
@@ -72,8 +73,9 @@ export default function SignUpForm({ onSignIn }: SignUpFormProps) {
         return true
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setFormError('')
 
         const isFirstNameValid = validateFirstName(firstName)
         const isLastNameValid = validateLastName(lastName)
@@ -84,10 +86,35 @@ export default function SignUpForm({ onSignIn }: SignUpFormProps) {
 
         setIsLoading(true)
 
-        setTimeout(() => {
-            setIsLoading(false)
+        try {
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    email: signupEmail,
+                    password: signupPassword,
+                }),
+            })
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                setFormError(data.error || 'Something went wrong')
+                setIsLoading(false)
+                return
+            }
+
+            // Navigate to home on success
             window.location.href = '/'
-        }, 1500)
+        } catch (err) {
+            console.error('Sign up error:', err)
+            setFormError('Network error. Please try again.')
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -100,6 +127,11 @@ export default function SignUpForm({ onSignIn }: SignUpFormProps) {
             onSubmit={handleSubmit}
             className="space-y-5"
         >
+            {formError && (
+                <div className="p-3 text-xs bg-rose-50 border border-rose-100 text-rose-600 rounded-xl font-semibold text-center">
+                    {formError}
+                </div>
+            )}
             {/* FIRST NAME INPUT */}
             <div className="relative">
                 <input
