@@ -153,8 +153,12 @@ export default function SignUpForm({ onSignIn }: SignUpFormProps) {
                 return
             }
 
-            // Navigate to home on success
-            window.location.href = '/'
+            // Navigate to appropriate page on success
+            if (data.user?.role === 'admin') {
+                window.location.href = '/admin'
+            } else {
+                window.location.href = '/'
+            }
         } catch (err) {
             console.error('Sign up error:', err)
             setFormError('Network error. Please try again.')
