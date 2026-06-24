@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Loader2, Shield, User, Trash2 } from 'lucide-react';
+import { Shield, User, Trash2 } from 'lucide-react';
 import { User as DbUser } from '@/lib/db';
+import AdminLoading from '../loading';
 
 type UserSession = Omit<DbUser, 'passwordHash' | 'salt'>;
 
@@ -93,11 +94,7 @@ export default function AdminUsers() {
   };
 
   if (loading) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-brand-teal" />
-      </div>
-    );
+    return <AdminLoading />;
   }
 
   return (

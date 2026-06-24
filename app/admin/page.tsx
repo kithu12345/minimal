@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DollarSign, ShoppingBag, ShoppingCart, Users, ArrowUpRight, Loader2 } from 'lucide-react';
+import { DollarSign, ShoppingBag, ShoppingCart, Users, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import AdminLoading from './loading';
 
 interface Metrics {
   totalSales: number;
@@ -52,11 +53,7 @@ export default function AdminDashboard() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-brand-teal" />
-      </div>
-    );
+    return <AdminLoading />;
   }
 
   const statCards = [

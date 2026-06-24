@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Loader2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Order } from '@/lib/db';
+import AdminLoading from '../loading';
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -51,11 +52,7 @@ export default function AdminOrders() {
   };
 
   if (loading) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-brand-teal" />
-      </div>
-    );
+    return <AdminLoading />;
   }
 
   return (

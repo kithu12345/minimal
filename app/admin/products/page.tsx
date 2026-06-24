@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Plus, Edit, Trash2, X, Loader2 } from 'lucide-react';
 import { Product } from '@/data/products';
+import AdminLoading from '../loading';
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -128,11 +129,7 @@ export default function AdminProducts() {
   };
 
   if (loading) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="size-6 animate-spin text-brand-teal" />
-      </div>
-    );
+    return <AdminLoading />;
   }
 
   return (
